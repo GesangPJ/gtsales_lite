@@ -2,21 +2,21 @@
 
 import * as React from "react"
 import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
+  IconPackage,
+  IconDatabaseDollar,
   IconDatabase,
-  IconFileAi,
-  IconFileDescription,
+  IconCreditCardFilled,
+  IconCashRegister,
   IconFileWord,
-  IconFolder,
+  IconHexagonPlusFilled,
   IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
+  IconTruckLoading,
+  IconAppsFilled,
+  IconCubePlus,
   IconReport,
-  IconSearch,
+  IconPackages,
   IconSettings,
-  IconUsers,
+  IconStack3,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/nav-documents"
@@ -30,6 +30,7 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
+  SidebarSeparator,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
@@ -41,32 +42,48 @@ const data = {
   },
   navMain: [
     {
-      title: "Dashboard",
+      title: "Kasir",
       url: "/",
-      icon: IconDashboard,
+      icon: IconCashRegister,
     },
     {
       title: "Data Penjualan",
       url: "/data-penjualan",
-      icon: IconListDetails,
+      icon: IconDatabaseDollar,
     },
     {
       title: "Data Pembelian",
-      url: "#",
-      icon: IconChartBar,
+      url: "/daftar-pembelian",
+      icon: IconCreditCardFilled,
     },
+    {
+      title: "Pembelian Barang",
+      url: "/tambah-pembelian",
+      icon: IconTruckLoading,
+    },
+    
+  ],
+  navTambah:[
     {
       title: "Data Barang",
-      url: "#",
-      icon: IconFolder,
+      url: "/daftar-barang",
+      icon: IconPackages,
     },
     {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
+      title: "Tambah Barang",
+      url: "/tambah-barang",
+      icon: IconCubePlus,
     },
+    
+    {
+      title: "Stok Barang",
+      url: "/stok-barang",
+      icon: IconStack3,
+    },
+
   ],
   navSecondary: [
+    
     {
       title: "Pengaturan",
       url: "#",
@@ -107,19 +124,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.8"
+              className="data-[slot=sidebar-menu-button]:p-1.8"
             >
-              <a href="#">
-                <IconInnerShadowTop className="!size-9" />
-                <span className="text-base font-semibold">GTSALES LITE <AppInfo/></span>
+              <a href="/">
+                <IconAppsFilled size={64} />
+                <span className="text-base font-semibold">GTSALES LITE </span>
+                <AppInfo/>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
+        <SidebarSeparator />
         <NavMain items={data.navMain} />
+        <SidebarSeparator />
+        {/* <span className="px-2">Barang</span> */}
+        <NavSecondary items={data.navTambah} className="mt-10px" />
+         <SidebarSeparator />
         <NavDocuments items={data.documents} />
+         <SidebarSeparator />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
