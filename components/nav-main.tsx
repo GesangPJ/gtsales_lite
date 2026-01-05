@@ -29,8 +29,8 @@ export function NavMain({
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild tooltip={item.title}>
                 <Link href={item.url}>
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
+                  {item.icon && <item.icon className="w-10 h-10" />}
+                  <span className="text-lg">{item.title}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
