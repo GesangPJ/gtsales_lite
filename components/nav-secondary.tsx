@@ -29,8 +29,8 @@ export function NavSecondary({
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild>
                 <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
+                  <item.icon className="w-10 h-10" />
+                  <span className="text-lg">{item.title}</span>
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
