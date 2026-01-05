@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Home() {
   return (
@@ -33,6 +34,9 @@ export default function Home() {
             </a>{" "}
             center.
           </p>
+          <>
+          <ModeToggle/>
+          </>
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
           <a
