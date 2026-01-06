@@ -5,7 +5,6 @@ import {
   IconCategoryPlus,
   IconDatabaseDollar,
   IconDatabase,
-  IconCreditCardFilled,
   IconCashRegister,
   IconFileWord,
   IconBuildingWarehouse,
@@ -75,7 +74,7 @@ const data = {
     },
     {
       title: "Kategori Barang",
-      url: "/stok-barang",
+      url: "/kategori-barang",
       icon: IconCategoryPlus,
     },
 
