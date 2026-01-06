@@ -2,13 +2,13 @@
 
 import * as React from "react"
 import {
-  IconPackage,
+  IconCategoryPlus,
   IconDatabaseDollar,
   IconDatabase,
   IconCreditCardFilled,
   IconCashRegister,
   IconFileWord,
-  IconHexagonPlusFilled,
+  IconBuildingWarehouse,
   IconHelp,
   IconTruckLoading,
   IconAppsFilled,
@@ -17,6 +17,7 @@ import {
   IconPackages,
   IconSettings,
   IconStack3,
+  IconDatabaseExport,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/nav-documents"
@@ -45,22 +46,14 @@ const data = {
       title: "Kasir",
       url: "/",
       icon: IconCashRegister,
+      isActive: true,
     },
     {
       title: "Data Penjualan",
       url: "/data-penjualan",
       icon: IconDatabaseDollar,
     },
-    {
-      title: "Data Pembelian",
-      url: "/daftar-pembelian",
-      icon: IconCreditCardFilled,
-    },
-    {
-      title: "Pembelian Barang",
-      url: "/tambah-pembelian",
-      icon: IconTruckLoading,
-    },
+    
     
   ],
   navTambah:[
@@ -80,13 +73,41 @@ const data = {
       url: "/stok-barang",
       icon: IconStack3,
     },
+    {
+      title: "Kategori Barang",
+      url: "/stok-barang",
+      icon: IconCategoryPlus,
+    },
+
+  ],
+  navVendor:[
+    {
+      title: "Data Vendor",
+      url: "/data-vendor",
+      icon: IconBuildingWarehouse,
+    },
+    {
+      title: "Tambah Vendor",
+      url: "/tambah-vendor",
+      icon: IconCubePlus,
+    },
+    {
+      title: "Data Pembelian",
+      url: "/daftar-pembelian",
+      icon: IconDatabaseExport,
+    },
+    {
+      title: "Pembelian Barang",
+      url: "/tambah-pembelian",
+      icon: IconTruckLoading,
+    },
 
   ],
   navSecondary: [
     
     {
       title: "Pengaturan",
-      url: "#",
+      url: "/pengaturan",
       icon: IconSettings,
     },
     {
@@ -142,6 +163,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <span className="px-2">Barang</span> */}
         <NavSecondary items={data.navTambah} className="mt-10px" />
          <SidebarSeparator />
+         <NavSecondary items={data.navVendor} className="mt-10px" />
+          <SidebarSeparator />
         <NavDocuments items={data.documents} />
          <SidebarSeparator />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
