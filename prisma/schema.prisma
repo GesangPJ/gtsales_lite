@@ -1,0 +1,134 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Barang {
+  id          Int      @id @default(autoincrement())
+  nama_barang String
+  harga_jual  Int
+  harga_beli  Int
+  stok        Int      @default(0)
+  kategoriId  Int      @default(1)
+  vendorId    Int?
+  barcode     String?
+  kadaluarsa  DateTime?
+  status      String   @default("Aktif")
+  keterangan  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // relasi
+  kategori    Kategori @relation(fields: [kategoriId], references: [id])
+  vendor      Vendor?   @relation(fields: [vendorId], references: [id])
+  pembeliandetail  PembelianDetail[]
+  transaksiDetails TransaksiDetail[]
+
+}
+
+// Tabel detail transaksi
+model TransaksiDetail {
+  id            Int        @id @default(autoincrement())
+  transaksiId   Int
+  produkId      Int
+  jumlah        Int
+  harga         Int
+  total         Int        @default(0) // total = quantity * price
+
+  // relasi
+  transaksi     Transaksi  @relation(fields: [transaksiId], references: [id])
+  barangs        Barang     @relation(fields: [produkId], references: [id])
+}
+
+// Tabel Transaksi (penjualan)
+model Transaksi {
+  id             Int              @id @default(autoincrement())
+  kode           String           @unique
+  status         String           @default("LUNAS")
+  pelanggan      String?
+  metode         String           @default("CASH")
+  jumlahTotal    Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  transaksiDetails TransaksiDetail[]
+
+}
+
+// Tabel Pembelian
+model Pembelian {
+  id            Int       @id @default(autoincrement())
+  kode          String    @unique
+  status        String?   @default("LUNAS")
+  biayakirim    Int?
+  vendorId      Int
+  jumlahtotalharga    Int
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // relasi
+  pembeliandetail PembelianDetail[]
+
+  vendor        Vendor    @relation(fields: [vendorId], references: [id])
+
+}
+
+// Tabel Detail Pembelian
+model PembelianDetail {
+  id            Int      @id  @default(autoincrement())
+  pembelianId   Int
+  barangId      Int
+  jumlah        Int
+  hargabeli     Int
+  total         Int
+
+  // relasi
+  pembelian     Pembelian @relation(fields: [pembelianId], references: [id])
+  barangs       Barang    @relation(fields: [barangId], references: [id])
+
+}
+
+model Kategori {
+  id        Int      @id @default(autoincrement())
+  nama_kategori      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  barangs   Barang[]
+}
+
+model Vendor {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  email     String   @unique
+  notelp    String?
+  alamat    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  barangs   Barang[]
+  pembelians Pembelian[]
+}
+
+// Tabel Pengaturan Toko
+model Toko {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  email     String   @unique
+  notelp    String?
+  alamat    String?
+  npwp      String?
+  siup      String?
+  pkp_status String? @default("N")
+  ppn       Float    @default(0.11)
+
+  updatedAt DateTime @updatedAt
+}
