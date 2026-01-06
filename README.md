@@ -5,4 +5,3 @@ Versi LITE ini tidak memiliki sistem akun dan autentikasi, langsung pada dashboa
 
 > [!WARNING]
 > Aplikasi masih dalam versi / tahap Alpha
-
