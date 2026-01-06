@@ -1,9 +1,14 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Kategori } from "./types"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown} from "lucide-react"
+
+type Kategori = {
+  id: number
+  nama_kategori: string
+  status: string
+}
 
 export const columns: ColumnDef<Kategori>[] = [
   {
