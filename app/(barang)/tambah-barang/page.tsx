@@ -5,7 +5,13 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 
-// import data from "./data.json"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from "@/components/ui/input-group"
 
 export default function HalamanTambahBarang() {
   return (
@@ -31,6 +37,9 @@ export default function HalamanTambahBarang() {
              
               <div className="px-4 lg:px-6">
                 
+              </div>
+              <div className="grid w-full max-w-sm gap-6">
+
               </div>
               
             </div>
