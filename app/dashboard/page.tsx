@@ -8,8 +8,6 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 
-import data from "./data.json"
-
 export default function DashboardTest() {
   return (
     <SidebarProvider
@@ -30,7 +28,6 @@ export default function DashboardTest() {
               <div className="px-4 lg:px-6">
                 <ChartAreaInteractive />
               </div>
-              <DataTable data={data} />
             </div>
           </div>
         </div>
