@@ -99,6 +99,7 @@ model PembelianDetail {
 model Kategori {
   id        Int      @id @default(autoincrement())
   nama_kategori      String   @unique
+  status    String   @default("AKTIF")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
