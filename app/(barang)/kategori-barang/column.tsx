@@ -13,7 +13,7 @@ type Kategori = {
 export const columns: ColumnDef<Kategori>[] = [
   {
     accessorKey: "id",
-    // size: 50,
+    size: 10,
     header: "ID",
     
   },
