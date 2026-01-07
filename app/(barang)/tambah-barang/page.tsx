@@ -5,13 +5,8 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupText,
-  InputGroupTextarea,
-} from "@/components/ui/input-group"
+import FormTambahBarang from "./form-tambahbarang"
+import { Form } from "lucide-react"
 
 export default function HalamanTambahBarang() {
   return (
@@ -35,8 +30,9 @@ export default function HalamanTambahBarang() {
                     <h1 className="text-2xl font-bold">Tambah Barang</h1>
                 </div>
              
-              <div className="px-4 lg:px-6">
-                
+              <div className="px-4 lg:px-6 ml-10">
+                <FormTambahBarang />
+          
               </div>
               <div className="grid w-full max-w-sm gap-6">
 
