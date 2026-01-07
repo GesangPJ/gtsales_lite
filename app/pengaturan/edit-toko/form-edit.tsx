@@ -264,7 +264,7 @@ export default async function FormEditToko() {
         </Button>
 
     <div className="ml-auto">
-        <Button variant="outline" size="lg" className="text-lg flex items-center gap-2 text-lg">
+        <Button variant="outline" size="lg" className="text-lg flex items-center gap-2">
             Simpan Perubahan
             <CircleCheckBig size={64}/>
         </Button>
