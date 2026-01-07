@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react"
+import { Button } from "@/components/ui/button"
+import { IconChevronLeft, IconChevronRight  } from '@tabler/icons-react';
 import {
   ColumnDef,
   flexRender,
@@ -10,6 +12,16 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table"
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 import {
   Table,
@@ -32,24 +44,50 @@ export function DataTable<TData, TValue>({
 
   const [sorting, setSorting] = React.useState<SortingState>([])
 
+  const [pagination, setPagination] = React.useState({
+  pageIndex: 0,
+  pageSize: 10,
+})
+
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
+      pagination,
     },
     onSortingChange: setSorting,
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(), // 🔑 INI KUNCI
     getPaginationRowModel: getPaginationRowModel(),
   })
 
   return (
-    <div className="rounded-md border">
-      <Table>
-        <TableHeader>
+    <div className="rounded-md border-2">
+      <div className="m-3">
+          <Select
+            value={String(table.getState().pagination.pageSize)}
+            onValueChange={(value) => table.setPageSize(Number(value))}
+          >
+            <SelectTrigger className="w-[120px] rounded-xl">
+              <SelectValue placeholder="Pilih" />
+            </SelectTrigger>
+
+            <SelectContent>
+              {[5, 10, 20, 50].map((size) => (
+                <SelectItem key={size} value={String(size)}>
+                  {size} Baris
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      <div>
+        <Table className="border-y-sidebar">
+        <TableHeader className="border-primary">
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="border-primary">
               {headerGroup.headers.map((header) => (
                 <TableHead key={header.id}>
                   {header.isPlaceholder
@@ -67,7 +105,7 @@ export function DataTable<TData, TValue>({
         <TableBody>
           {table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.id} className="">
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(
@@ -90,6 +128,62 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
+      </div>
+
+      <div>
+        {/* <div className="m-3">
+          <Select
+            value={String(table.getState().pagination.pageSize)}
+            onValueChange={(value) => table.setPageSize(Number(value))}
+          >
+            <SelectTrigger className="w-[120px] rounded-xl">
+              <SelectValue placeholder="Pilih" />
+            </SelectTrigger>
+
+            <SelectContent>
+              {[5, 10, 20, 50].map((size) => (
+                <SelectItem key={size} value={String(size)}>
+                  {size} Baris
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div> */}
+
+        <div className="grid grid-cols-3 items-center p-3 m-3">
+          {/* KIRI */}
+          <div className="justify-self-start">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              <IconChevronLeft/>
+              Sebelumnya
+            </Button>
+          </div>
+
+          {/* TENGAH */}
+          <div className="text-center text-sm text-muted-foreground">
+            Halaman {table.getState().pagination.pageIndex + 1} dari{" "}
+            {table.getPageCount()}
+          </div>
+
+          {/* KANAN */}
+          <div className="justify-self-end">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Berikutnya
+              <IconChevronRight/>
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
