@@ -26,15 +26,15 @@ async function getKategoris(): Promise<Kategori[]> {
 }
 
 export default async function TabelKategori() {
-
-    const kategoris = await getKategoris()
-
+  const kategoris = await getKategoris()
     return(
         <div>
+          <div className="">
             <DataTable
             columns={columns}
             data={kategoris}
             />
+          </div>
         </div>
     )
 }
