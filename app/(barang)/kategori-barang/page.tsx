@@ -32,8 +32,12 @@ export default function HalamanKategori() {
                 </h1>
               </div>
 
-              <div className="px-4 lg:px-6">
+              <div className="px-4 lg:px-6 max-w-xl">
                 <TabelKategori />
+              </div>
+
+              <div>
+                Data Test
               </div>
 
             </div>
