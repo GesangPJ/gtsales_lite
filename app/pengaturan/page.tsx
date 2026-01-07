@@ -1,5 +1,4 @@
 import { AppSidebar } from "@/components/app-sidebar"
-import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { SiteHeader } from "@/components/site-header"
 import {
   SidebarInset,
@@ -10,11 +9,14 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
+import Link from "next/link"
+
+import { Button } from "@/components/ui/button"
+
+import {SquarePen}  from "lucide-react"
 
 import { Prisma } from "@/generated/prisma/client"
 import {prisma} from '@/lib/prisma'
@@ -22,13 +24,11 @@ import {prisma} from '@/lib/prisma'
 
 type Toko = Prisma.TokoGetPayload<{
   select: {
-  id : true
   nama : true
   alamat : true
   notelp : true
   email : true
   npwp : true
-  pkp_status : true
   siup : true
   ppn : true
   }
@@ -39,13 +39,11 @@ async function getToko(): Promise<Toko[]> {
     return await prisma.toko.findMany({
       where: {id: 1},
       select: {
-        id : true,
         nama : true,
         alamat : true,
         notelp : true,
         email : true,
         npwp : true,
-        pkp_status : true,
         siup : true,
         ppn : true,
       },
@@ -85,7 +83,6 @@ export default async function HalamanPengaturan() {
                 </div>
               <div className="px-4 lg:px-5">
                 <Table className="border-none ">
-                  <TableCaption>Data Toko</TableCaption>
                   <TableBody className="text-lg">
                     <TableRow>
                       <TableCell className="max-w-5 truncate">Nama Toko</TableCell>
@@ -122,14 +119,18 @@ export default async function HalamanPengaturan() {
                       <TableCell className="max-w-1 truncate">:</TableCell>
                       <TableCell>{tarif_ppn}</TableCell>
                     </TableRow>
-                    <TableRow>
-                      <TableCell className="max-w-5 truncate">Status PKP</TableCell>
-                      <TableCell className="max-w-1 truncate">:</TableCell>
-                      <TableCell>{datatoko[0]?.pkp_status}</TableCell>
-                    </TableRow>
                   </TableBody>
 
                 </Table>
+              </div>
+              <div className="px-4 lg:px-6">
+                <Button size="lg" className="text-lg" >
+                    <SquarePen size={64}/>
+                    <Link href="/pengaturan/edit-toko">
+                    Ubah Data Toko
+                    </Link>
+                </Button>
+
               </div>
             </div>
           </div>
