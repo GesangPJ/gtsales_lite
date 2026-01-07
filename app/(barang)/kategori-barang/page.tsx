@@ -4,33 +4,10 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
-import { DataTable } from "@/components/data-table"
-import { columns } from "./column"
-import {prisma} from '@/lib/prisma'
+import TabelKategori from "./tabel-kategori"
 
-type Kategori = {
-  id: number
-  nama_kategori: string
-  status: string
-}
 
-async function getKategoris(): Promise<Kategori[]> {
-  try {
-    return await prisma.kategori.findMany({
-      select: {
-        id: true,
-        nama_kategori: true,
-        status: true,
-      },
-    })
-  } catch (error) {
-    console.error("Data Kategori tidak dapat diambil", error)
-    return []
-  }
-}
-
-export default async function HalamanKategori() {
-  const kategoris = await getKategoris()
+export default function HalamanKategori() {
 
   return (
     <SidebarProvider
@@ -56,10 +33,7 @@ export default async function HalamanKategori() {
               </div>
 
               <div className="px-4 lg:px-6">
-                <DataTable
-                  columns={columns}
-                  data={kategoris}
-                />
+                <TabelKategori />
               </div>
 
             </div>
