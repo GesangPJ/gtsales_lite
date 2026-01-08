@@ -81,16 +81,6 @@ const data = {
   ],
   navVendor:[
     {
-      title: "Data Vendor",
-      url: "/data-vendor",
-      icon: IconBuildingWarehouse,
-    },
-    {
-      title: "Tambah Vendor",
-      url: "/tambah-vendor",
-      icon: IconCubePlus,
-    },
-    {
       title: "Data Pembelian",
       url: "/daftar-pembelian",
       icon: IconDatabaseExport,
@@ -110,26 +100,9 @@ const data = {
       icon: IconSettings,
     },
     {
-      title: "Get Help",
+      title: "Panduan",
       url: "#",
       icon: IconHelp,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
     },
   ],
 }
@@ -144,7 +117,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:p-1.8"
+              className="data-[slot=sidebar-menu-button]:p-1.6"
             >
               <a href="/">
                 <IconAppsFilled size={64} />
@@ -164,9 +137,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
          <SidebarSeparator />
          <NavSecondary items={data.navVendor} className="mt-10px" />
           <SidebarSeparator />
-        <NavDocuments items={data.documents} />
-         <SidebarSeparator />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavSecondary items={data.navSecondary} className="mt-50px" />
       </SidebarContent>
       <SidebarFooter>
         {/* <NavUser user={data.user} /> */}
