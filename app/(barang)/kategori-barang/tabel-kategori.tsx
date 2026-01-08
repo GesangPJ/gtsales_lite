@@ -15,7 +15,7 @@ export default async function TabelKategori() {
     
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ambil-kategori`, {
-        next: { revalidate: 60 }, // Revalidate setiap X detik
+        next: { revalidate: 120 }, // Revalidate setiap X detik
       })
       
       if (!res.ok) {       
