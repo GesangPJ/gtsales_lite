@@ -7,20 +7,16 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { Prisma } from "@/generated/prisma/client"
-import {prisma} from '@/lib/prisma'
+type Toko = {
+  nama: string,
+  alamat: string,
+  notelp: string,
+  email: string
+  npwp: string,
+  siup: string,
+  ppn: number,
 
-type Toko = Prisma.TokoGetPayload<{
-  select: {
-  nama : true
-  alamat : true
-  notelp : true
-  email : true
-  npwp : true
-  siup : true
-  ppn : true
-  }
-}>
+}
 
 export default async function DataToko() {
   let datatoko : Toko[] = []
