@@ -70,12 +70,12 @@ export function DataTable<TData, TValue>({
             value={String(table.getState().pagination.pageSize)}
             onValueChange={(value) => table.setPageSize(Number(value))}
           >
-            <SelectTrigger className="w-[120px] rounded-xl">
+            <SelectTrigger className="w-30 rounded-xl">
               <SelectValue placeholder="Pilih" />
             </SelectTrigger>
 
             <SelectContent>
-              {[5, 10, 20, 50].map((size) => (
+              {[5, 10, 15, 20, 50].map((size) => (
                 <SelectItem key={size} value={String(size)}>
                   {size} Baris
                 </SelectItem>
@@ -84,7 +84,7 @@ export function DataTable<TData, TValue>({
           </Select>
         </div>
       <div>
-        <Table className="border-y-sidebar">
+        <Table className="border">
         <TableHeader className="border-primary">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="border-primary">
