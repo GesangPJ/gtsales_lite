@@ -11,7 +11,6 @@ async function main() {
             notelp: '021-12345678',
             email: 'sales@prabu.com',
             npwp: '01.234.567.8-901.000',
-            pkp_status: 'Y',
             siup: 'SIUP-1234567890',
             ppn: 0.11,
             },
