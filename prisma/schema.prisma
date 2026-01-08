@@ -17,7 +17,6 @@ model Barang {
   harga_beli  Int
   stok        Int      @default(0)
   kategoriId  Int      @default(1)
-  vendorId    Int?
   barcode     String?
   kadaluarsa  DateTime?
   status      String   @default("Aktif")
@@ -27,7 +26,6 @@ model Barang {
 
   // relasi
   kategori    Kategori @relation(fields: [kategoriId], references: [id])
-  vendor      Vendor?   @relation(fields: [vendorId], references: [id])
   pembeliandetail  PembelianDetail[]
   transaksiDetails TransaksiDetail[]
 
@@ -68,7 +66,7 @@ model Pembelian {
   kode          String    @unique
   status        String?   @default("LUNAS")
   biayakirim    Int?
-  vendorId      Int
+  nama_vendor   String?
   jumlahtotalharga    Int
 
   createdAt     DateTime  @default(now())
@@ -76,8 +74,6 @@ model Pembelian {
 
   // relasi
   pembeliandetail PembelianDetail[]
-
-  vendor        Vendor    @relation(fields: [vendorId], references: [id])
 
 }
 
@@ -106,19 +102,6 @@ model Kategori {
   barangs   Barang[]
 }
 
-model Vendor {
-  id        Int      @id @default(autoincrement())
-  nama      String
-  email     String   @unique
-  notelp    String?
-  alamat    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  barangs   Barang[]
-  pembelians Pembelian[]
-}
-
 // Tabel Pengaturan Toko
 model Toko {
   id        Int      @id @default(autoincrement())
@@ -128,7 +111,6 @@ model Toko {
   alamat    String?
   npwp      String?
   siup      String?
-  pkp_status String? @default("N")
   ppn       Float    @default(0.11)
 
   updatedAt DateTime @updatedAt
