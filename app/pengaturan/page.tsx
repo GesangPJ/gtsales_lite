@@ -32,7 +32,7 @@ export default function HalamanPengaturan() {
               <div className="px-4 lg:px-6">
                     <h1 className="text-2xl font-bold">Pengaturan Toko</h1>
                 </div>
-              <div className="px-4 lg:px-5">
+              <div className="px-6 lg:px-6">
                 <DataToko />
               </div>
               <div className="px-4 lg:px-6">
