@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed:toko":"bun prisma/seedToko.ts",
-    "seed:kategori":"bun prisma/seedKategori.ts"
+    "seed:toko": "bun prisma/seedToko.ts",
+    "seed:kategori": "bun prisma/seedKategori.ts"
   },
   "type": "module",
   "dependencies": {
