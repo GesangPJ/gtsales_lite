@@ -16,49 +16,35 @@ import {
 
 import { Label } from "@/components/ui/label"
 
-import {prisma} from '@/lib/prisma'
-import { Prisma } from "@/generated/prisma/client"
-
 import { Button } from "@/components/ui/button"
 
-type Toko = Prisma.TokoGetPayload<{
-  select: {
-  id : true
-  nama : true
-  alamat : true
-  notelp : true
-  email : true
-  npwp : true
-  siup : true
-  ppn : true
-  }
-}>
+type Toko = {
+  nama: string,
+  alamat: string,
+  notelp: string,
+  email: string
+  npwp: string,
+  siup: string,
+  ppn: number,
 
-async function getToko(): Promise<Toko[]> {
-  try{
-    return await prisma.toko.findMany({
-      where: {id: 1},
-      select: {
-        id : true,
-        nama : true,
-        alamat : true,
-        notelp : true,
-        email : true,
-        npwp : true,
-        siup : true,
-        ppn : true,
-      },
-    })
-  } catch (error) {
-    console.error("Data Toko tidak dapat diambil", error)
-    return []
-  }
 }
 
 export default async function FormEditToko() {
 
-    const datatoko = await getToko()
+   let datatoko: Toko[]=[]
 
+   try{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/data-toko`, 
+      {next: {revalidate: 120},
+    })
+
+    if(!res.ok){
+      throw new Error('Gagal ambil data Toko')
+    }
+    datatoko = await res.json()
+  } catch(error){
+    console.error("Date Toko tidak dapat diambil dari API", error)
+  }
 
   // ubah ppn ke format persen
   const tarif_ppn = (datatoko[0]?.ppn || 0 ) * 100
