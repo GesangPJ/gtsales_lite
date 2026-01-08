@@ -5,6 +5,16 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import TabelKategori from "./tabel-kategori"
+import {
+  Dialog,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+import {IconCirclePlusFilled} from "@tabler/icons-react"
+
+import FormInputKategori from "./form-kategori"
+
+import { Button } from "@/components/ui/button"
 
 
 export default function HalamanKategori() {
@@ -32,12 +42,13 @@ export default function HalamanKategori() {
                 </h1>
               </div>
 
-              <div className="px-4 lg:px-6 max-w-xl">
+              <div className="px-4 lg:px-6 max-w-120">
                 <TabelKategori />
               </div>
 
-              <div>
-                Data Test
+              <div className="px-4 lg:px-6 max-w-120 mt-5">
+                <FormInputKategori/>
+                
               </div>
 
             </div>
