@@ -38,12 +38,12 @@ export default async function DataToko() {
   const tarif_ppn = (datatoko[0]?.ppn || 0 ) * 100 + '%'
 
   return(
-    <div>
+    <div className="">
         <Table className="border-none ">
                   <TableBody className="text-lg">
                     <TableRow>
-                      <TableCell className="max-w-5 truncate">Nama Toko</TableCell>
-                      <TableCell className="max-w-1 truncate">:</TableCell>
+                      <TableCell className="max-w-10 truncate">Nama Toko</TableCell>
+                      <TableCell className="max-w-1">:</TableCell>
                       <TableCell>{datatoko[0]?.nama}</TableCell>
                     </TableRow>
                     <TableRow>
