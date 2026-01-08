@@ -1,30 +1,31 @@
 // Komponen tabel kategori barang
 
-import { prisma } from "@/lib/prisma"
 import { columns } from "./column"
 import { DataTable } from "@/components/data-table"
+import { toast } from "sonner"
 
 type Kategori = {
   id: number
   nama_kategori: string
 }
 
-async function getKategoris(): Promise<Kategori[]> {
-  try {
-    return await prisma.kategori.findMany({
-      select: {
-        id: true,
-        nama_kategori: true,
-      },
-    })
-  } catch (error) {
-    console.error("Data Kategori tidak dapat diambil", error)
-    return []
-  }
-}
-
 export default async function TabelKategori() {
-  const kategoris = await getKategoris()
+
+    let kategoris: Kategori[] = []
+    
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ambil-kategori`, {
+        next: { revalidate: 60 }, // Revalidate setiap X detik
+      })
+      
+      if (!res.ok) {       
+        throw new Error('Gagal ambil data kategori')
+      }    
+      kategoris = await res.json()
+    } catch (error) {
+      console.error("Data Kategori tidak dapat diambil dari API", error)
+    }
+
     return(
         <div>
           <div className="">
