@@ -7,7 +7,6 @@ import { DataTable } from "@/components/data-table"
 type Kategori = {
   id: number
   nama_kategori: string
-  status: string
 }
 
 async function getKategoris(): Promise<Kategori[]> {
@@ -16,7 +15,6 @@ async function getKategoris(): Promise<Kategori[]> {
       select: {
         id: true,
         nama_kategori: true,
-        status: true,
       },
     })
   } catch (error) {
