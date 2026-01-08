@@ -7,7 +7,6 @@ import { ArrowUpDown} from "lucide-react"
 type Kategori = {
   id: number
   nama_kategori: string
-  status: string
 }
 
 export const columns: ColumnDef<Kategori>[] = [
@@ -32,9 +31,5 @@ export const columns: ColumnDef<Kategori>[] = [
         {row.getValue("nama_kategori")}
       </div>
     ),
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
   },
 ]
