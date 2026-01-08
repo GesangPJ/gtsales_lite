@@ -29,7 +29,6 @@ type Toko = Prisma.TokoGetPayload<{
   notelp : true
   email : true
   npwp : true
-  pkp_status : true
   siup : true
   ppn : true
   }
@@ -46,7 +45,6 @@ async function getToko(): Promise<Toko[]> {
         notelp : true,
         email : true,
         npwp : true,
-        pkp_status : true,
         siup : true,
         ppn : true,
       },
@@ -61,7 +59,6 @@ export default async function FormEditToko() {
 
     const datatoko = await getToko()
 
-    const pkp_txt = datatoko[0]?.pkp_status === 'Y' ? 'PKP' : 'Non PKP'
 
   // ubah ppn ke format persen
   const tarif_ppn = (datatoko[0]?.ppn || 0 ) * 100
