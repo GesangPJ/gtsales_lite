@@ -2,7 +2,6 @@
 
 import { columns } from "./column"
 import { DataTable } from "@/components/data-table"
-import { toast } from "sonner"
 
 type Kategori = {
   id: number
