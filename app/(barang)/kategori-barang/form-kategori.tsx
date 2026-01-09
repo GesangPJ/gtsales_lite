@@ -25,7 +25,7 @@ export default function FormInputKategori(){
     setLoading(true)
 
     try {
-      const res = await fetch("/api/simpan-kategori", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/simpan-kategori`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
