@@ -26,6 +26,9 @@ type Kategori = {
 }
 
 export default function FormTambahBarang() {
+    const [value, setValue] = useState("")
+    const maxLength = 250 // banyaknya kata untuk textarea
+    const remaining = maxLength - value.length  //sisa kata untuk textarea
     const [loading, setLoading] = useState(false)
     const [kategoris, setKategoris] = useState<Kategori[]>([])
     const [selectedKategori, setSelectedKategori] = useState<Kategori | null>(null)
@@ -138,13 +141,23 @@ export default function FormTambahBarang() {
                 </div>&nbsp;
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="keterangan" className="text-lg">Keterangan</Label>
-                    <InputGroup  className="border border-primary">
-                    <InputGroupTextarea name="keterangan" placeholder="Masukkan Keterangan Barang" id="keterangan" />
-                    <InputGroupAddon align="block-end">
-                    <InputGroupText className="text-muted-foreground text-xs">
-                        .
-                    </InputGroupText>
-                    </InputGroupAddon>
+                    <InputGroup className="border border-primary">
+                        <InputGroupTextarea
+                        name="keterangan"
+                        id="keterangan"
+                        placeholder="Masukkan Keterangan Barang"
+                        value={value}
+                        onChange={(e) => setValue(e.target.value.slice(0, maxLength))}  // Enforce limit
+                        maxLength={maxLength}
+                        rows={3}
+                        />
+                        
+                        <InputGroupAddon align="block-end">
+                        <InputGroupText className="text-muted-foreground text-xs">
+                            {remaining}/{maxLength} karakter
+                            {remaining < 20 && <span className="text-destructive ml-1">!</span>}
+                        </InputGroupText>
+                        </InputGroupAddon>
                     </InputGroup>
                 </div>&nbsp;
                 <div className="flex items-center gap-3">
