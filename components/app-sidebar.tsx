@@ -17,6 +17,7 @@ import {
   IconSettings,
   IconStack3,
   IconDatabaseExport,
+  IconTableFilled,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/nav-documents"
@@ -57,9 +58,9 @@ const data = {
   ],
   navTambah:[
     {
-      title: "Data Barang",
-      url: "/daftar-barang",
-      icon: IconPackages,
+      title: "Tabel Barang",
+      url: "/data-barang",
+      icon: IconTableFilled,
     },
     {
       title: "Tambah Barang",
