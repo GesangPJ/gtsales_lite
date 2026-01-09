@@ -29,7 +29,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      ><Toaster/>
+      ><Toaster
+        position="top-center"
+          richColors
+          closeButton
+        />
         <ThemeProvider
             attribute="class"
             defaultTheme="system"
