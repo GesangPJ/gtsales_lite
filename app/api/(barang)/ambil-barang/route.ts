@@ -12,8 +12,11 @@ export async function GET(_req: NextRequest) {
         nama_barang: true,
         harga_jual: true,
         harga_beli: true,
+        barcode: true,
         stok: true,
-        status: true,
+        kategoriId: true,
+        keterangan:true,
+        kadaluarsa:true,
       },
     })
 
