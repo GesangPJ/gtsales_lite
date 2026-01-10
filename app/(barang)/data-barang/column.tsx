@@ -16,11 +16,20 @@ type Barang = {
 }
 
 export const columns: ColumnDef<Barang>[] = [
+
+
   {
-    accessorKey: "id",
+    id: "no",
+    header: "No",
     size: 10,
-    header: "ID",
-    
+    cell: ({ row, table }) => {
+      // Index berdasarkan row yang sedang ditampilkan (respect sorting & filtering)
+      const sortedRows = table.getSortedRowModel().flatRows
+      const index =
+        sortedRows.findIndex((r) => r.id === row.id) // posisi row saat ini
+      return <span>{index + 1}</span>
+    },
+    enableSorting: false, // nomor urut tidak perlu disort
   },
   {
     accessorKey: "nama_barang",
@@ -34,7 +43,7 @@ export const columns: ColumnDef<Barang>[] = [
       </Button>
     ),
     cell: ({ row }) => (
-      <div className="capitalize">
+      <div className="capitalize pl-2">
         {row.getValue("nama_barang")}
       </div>
     ),
@@ -63,7 +72,7 @@ export const columns: ColumnDef<Barang>[] = [
         minimumFractionDigits: 0,  // Hilangkan .00
       }).format(harga)
 
-      return <div className="text-left font-medium">{formatted}</div>
+      return <div className="text-left font-medium pl-2">{formatted}</div>
     },
   },
   {
@@ -89,7 +98,7 @@ export const columns: ColumnDef<Barang>[] = [
         minimumFractionDigits: 0,  // Hilangkan .00
       }).format(harga)
 
-      return <div className="text-left font-medium">{formatted}</div>
+      return <div className="text-left font-medium pl-2">{formatted}</div>
     },
   },
   {
@@ -104,7 +113,7 @@ export const columns: ColumnDef<Barang>[] = [
       </Button>
     ),
     cell: ({ row }) => (
-      <div className="capitalize">
+      <div className="capitalize pl-2">
         {row.getValue("namaKategori")}
       </div>
     ),
@@ -119,6 +128,29 @@ export const columns: ColumnDef<Barang>[] = [
   },
   {
     accessorKey: "kadaluarsa",
-    header: "Kadaluarsa",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="h-8 px-2"
+      >
+        Kadaluarsa
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const value = row.getValue("kadaluarsa") as string
+      
+      // ✅ Fallback "-" kalau kosong/null
+      if (!value || value === "null") {
+        return <div className="pl-2 text-left">tidak ada data</div>
+      }
+      
+      // Format ISO → DD-MM-YYYY
+      const [datePart] = value.split("T")
+      const [year, month, day] = datePart.split("-")
+      
+      return <div>{`${day}-${month}-${year}`}</div>
   },
+},
 ]
