@@ -166,7 +166,7 @@ export function DataTable<TData, TValue>({
 
           {/* TENGAH */}
           <div className="text-center text-sm text-muted-foreground">
-            Halaman {table.getState().pagination.pageIndex + 1} dari{" "}
+           {table.getState().pagination.pageIndex + 1} dari{" "}
             {table.getPageCount()}
           </div>
 
