@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner"
 
 import { ThemeProvider } from "@/components/theme-provider"
+
+const figtree = Figtree({subsets:['latin'],variable:'--font-sans'})
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={figtree.variable}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       ><Toaster
