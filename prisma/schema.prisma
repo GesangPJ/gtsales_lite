@@ -17,7 +17,7 @@ model Barang {
   harga_beli  Int
   stok        Int      @default(0)
   kategoriId  Int      @default(1)
-  barcode     String?
+  barcode     String?  
   kadaluarsa  DateTime?
   status      String   @default("Aktif")
   keterangan  String?
