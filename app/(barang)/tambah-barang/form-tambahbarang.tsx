@@ -98,11 +98,11 @@ export default function FormTambahBarang() {
         <form onSubmit={handleSubmit} ref={formRef} className="text-lg">
             <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="nama_barang" className="text-lg">Nama Barang</Label>
-                    <Input type="text" id="nama_barang" name="nama_barang" placeholder="Masukkan Nama Barang" className="border border-primary" required/>
+                    <Input type="text" id="nama_barang" name="nama_barang" placeholder="Masukkan Nama Barang"  className="border" required/>
                 </div>&nbsp;
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="harga_jual" className="text-lg">Harga Jual</Label>
-                    <InputGroup className="border border-primary">
+                    <InputGroup  className="border">
                     <InputGroupInput
                     type="number" 
                     name="harga_jual"
@@ -116,7 +116,7 @@ export default function FormTambahBarang() {
                 </div>&nbsp;
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="harga_beli" className="text-lg">Harga Beli</Label>
-                    <InputGroup  className="border border-primary">
+                    <InputGroup   className="border">
                     <InputGroupInput type="number" id="harga_beli" name="harga_beli" placeholder="Masukkan Harga Beli Barang" required/>
                     <InputGroupAddon align="inline-start">
                         <InputGroupText>Rp</InputGroupText>
@@ -125,14 +125,14 @@ export default function FormTambahBarang() {
                 </div>&nbsp;
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="barcode" className="text-lg">Barcode</Label>
-                    <InputGroup  className="border border-primary">
+                    <InputGroup  className="border">
                     <InputGroupInput type="number" id="barcode" name="barcode" placeholder="Kode Barcode Opsional"/>
                     </InputGroup>
                 </div>&nbsp;
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="stok" className="text-lg">Stok Awal</Label>
                     <Input 
-                     className="border border-primary"
+                      className="border"
                     defaultValue="0" 
                     type="number" 
                     id="stok"
@@ -141,7 +141,7 @@ export default function FormTambahBarang() {
                 </div>&nbsp;
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="keterangan" className="text-lg">Keterangan</Label>
-                    <InputGroup className="border border-primary">
+                    <InputGroup className="border">
                         <InputGroupTextarea
                         name="keterangan"
                         id="keterangan"
