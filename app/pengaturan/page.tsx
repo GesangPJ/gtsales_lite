@@ -36,8 +36,8 @@ export default function HalamanPengaturan() {
                 <DataToko />
               </div>
               <div className="px-4 lg:px-6">
-                <Button size="lg" className="text-lg" >
-                    <SquarePen size={64}/>
+                <Button size="lg" className="text-base" >
+                    <SquarePen className="h-12 w-12"/>
                     <Link href="/pengaturan/edit-toko">
                     Ubah Data Toko
                     </Link>
