@@ -18,7 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {CircleCheckBig} from "lucide-react"
+import {CirclePlus} from "lucide-react"
 
 type Kategori = {
   id: number
@@ -184,7 +184,7 @@ export default function FormTambahBarang() {
                 </div>
                 <div className="mt-4">
                 <Button type="submit" disabled={loading || !selectedKategori}>
-                    <CircleCheckBig className="mr-2 h-4 w-4" />
+                    <CirclePlus className="h-12 w-12" />
                     {loading ? "Menyimpan..." : "Tambah Barang"}
                 </Button>
                 </div>
