@@ -1,4 +1,4 @@
-// API Ambil data kategori dari database
+// API Ambil data barang dari database
 
 import { prisma } from "@/lib/prisma"
 import { NextResponse } from "next/server"
