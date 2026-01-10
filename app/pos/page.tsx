@@ -1,16 +1,19 @@
+
+
 import { AppSidebar } from "@/components/app-sidebar"
-import { ChartAreaInteractive } from "@/components/chart-area-interactive"
-import { DataTable } from "@/components/data-table"
-import { SectionCards } from "@/components/section-cards"
+import FormKasir from "./kasir"
 import { SiteHeader } from "@/components/site-header"
+
 import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
 
-import data from "./data.json"
 
 export default function HalamanPOS() {
+
+  
+
   return (
     <SidebarProvider
       style={
@@ -30,9 +33,10 @@ export default function HalamanPOS() {
                     <h1 className="text-2xl font-bold">Kasir</h1>
                 </div>
               <div className="px-4 lg:px-6">
-                <ChartAreaInteractive />
+                <FormKasir/>
+                
               </div>
-              <DataTable data={data} />
+              
             </div>
           </div>
         </div>
