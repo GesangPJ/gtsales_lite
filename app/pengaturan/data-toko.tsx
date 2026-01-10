@@ -40,40 +40,40 @@ export default async function DataToko() {
   return(
     <div className="">
         <Table className="border-none ">
-                  <TableBody className="text-lg">
+                  <TableBody className="text-sm">
                     <TableRow>
-                      <TableCell className="max-w-10 truncate">Nama Toko</TableCell>
-                      <TableCell className="max-w-1">:</TableCell>
+                      <TableCell className="w-15">Nama Toko</TableCell>
+                      <TableCell className="w-2">:</TableCell>
                       <TableCell>{datatoko[0]?.nama}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="max-w-5 truncate">Alamat</TableCell>
-                      <TableCell className="max-w-1 truncate">:</TableCell>
+                      <TableCell className="w-15">Alamat</TableCell>
+                      <TableCell className="w-2">:</TableCell>
                       <TableCell >{datatoko[0]?.alamat}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="max-w-5 truncate">Telepon</TableCell>
-                      <TableCell className="max-w-1 truncate">:</TableCell>
+                      <TableCell className="w-15">Telepon</TableCell>
+                      <TableCell className="w-2">:</TableCell>
                       <TableCell>{datatoko[0]?.notelp}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="max-w-5 truncate">Email</TableCell>
-                      <TableCell className="max-w-1 truncate">:</TableCell>
+                      <TableCell className="w-15">Email</TableCell>
+                      <TableCell className="w-2">:</TableCell>
                       <TableCell>{datatoko[0]?.email}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="max-w-5 truncate">No. NPWP</TableCell>
-                      <TableCell className="max-w-1 truncate">:</TableCell>
+                      <TableCell className="w-15">No. NPWP</TableCell>
+                      <TableCell className="w-2">:</TableCell>
                       <TableCell>{datatoko[0]?.npwp}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="max-w-5 truncate">No. SIUP</TableCell>
-                      <TableCell className="max-w-1 truncate">:</TableCell>
+                      <TableCell className="w-15">No. SIUP</TableCell>
+                      <TableCell className="w-2">:</TableCell>
                       <TableCell>{datatoko[0]?.siup}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="max-w-5 truncate">Tarif Ppn</TableCell>
-                      <TableCell className="max-w-1 truncate">:</TableCell>
+                      <TableCell className="w-15">Tarif Ppn</TableCell>
+                      <TableCell className="w-2">:</TableCell>
                       <TableCell>{tarif_ppn}</TableCell>
                     </TableRow>
                   </TableBody>
