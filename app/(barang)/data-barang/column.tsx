@@ -126,31 +126,31 @@ export const columns: ColumnDef<Barang>[] = [
     accessorKey: "barcode",
     header: "Barcode",
   },
-  {
-    accessorKey: "kadaluarsa",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="h-8 px-2"
-      >
-        Kadaluarsa
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => {
-      const value = row.getValue("kadaluarsa") as string
+//   {
+//     accessorKey: "kadaluarsa",
+//     header: ({ column }) => (
+//       <Button
+//         variant="ghost"
+//         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+//         className="h-8 px-2"
+//       >
+//         Kadaluarsa
+//         <ArrowUpDown className="ml-2 h-4 w-4" />
+//       </Button>
+//     ),
+//     cell: ({ row }) => {
+//       const value = row.getValue("kadaluarsa") as string
       
-      // ✅ Fallback "-" kalau kosong/null
-      if (!value || value === "null") {
-        return <div className="pl-2 text-left">tidak ada data</div>
-      }
+//       // ✅ Fallback "-" kalau kosong/null
+//       if (!value || value === "null") {
+//         return <div className="pl-2 text-left">tidak ada data</div>
+//       }
       
-      // Format ISO → DD-MM-YYYY
-      const [datePart] = value.split("T")
-      const [year, month, day] = datePart.split("-")
+//       // Format ISO → DD-MM-YYYY
+//       const [datePart] = value.split("T")
+//       const [year, month, day] = datePart.split("-")
       
-      return <div>{`${day}-${month}-${year}`}</div>
-  },
-},
+//       return <div>{`${day}-${month}-${year}`}</div>
+//   },
+// },
 ]
