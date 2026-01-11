@@ -34,6 +34,14 @@ export default function FormTambahBarang() {
     const [selectedKategori, setSelectedKategori] = useState<Kategori | null>(null)
     const formRef = useRef<HTMLFormElement>(null)
 
+    // reset form jika tombol reset diklik
+    const clear = () => {
+        formRef.current?.reset() 
+        setValue("")   // reset keterangan
+        setSelectedKategori(null)  // reset kategori
+    }
+
+    // ambil nama kategori dari API
     async function getKategori() {
         try {
         const res = await fetch(
@@ -182,8 +190,15 @@ export default function FormTambahBarang() {
                     </DropdownMenuContent>
                 </DropdownMenu>
                 </div>
-                <div className="mt-4">
-                <Button type="submit" disabled={loading || !selectedKategori}>
+                <div className="flex gap-3 mt-6">
+                <Button
+                    variant="destructive" 
+                    className="flex-1 h-14 text-xl"
+                    onClick={clear}
+                >
+                    Reset
+                </Button>
+                <Button type="submit" disabled={loading || !selectedKategori} className="flex-1 h-14 text-xl" >
                     <CirclePlus className="h-12 w-12" />
                     {loading ? "Menyimpan..." : "Tambah Barang"}
                 </Button>
