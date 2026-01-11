@@ -14,6 +14,7 @@ interface CartItem {
 interface CartState {
   items: CartItem[]
   addItem: (item: Omit<CartItem, 'jumlah'> & { jumlah: number }) => void
+  updateHargaBeli: (id: number, harga: number) => void
   updateQty: (id: number, qty: number) => void
   removeItem: (id: number) => void
   clear: () => void
@@ -31,6 +32,17 @@ export const useCartStore = create<CartState>()(
       })),
       removeItem: (id) => set((state) => ({
         items: state.items.filter(item => item.id !== id)
+      })),
+      updateHargaBeli: (id, harga) => set((state) => ({
+        items: state.items.map(item => 
+          item.id === id 
+            ? { 
+                ...item, 
+                harga_beli: harga,
+                totalharga: harga * item.jumlah  // Recalculate total
+              } 
+            : item
+        )
       })),
       clear: () => set({ items: [] })
     }),
