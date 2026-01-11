@@ -8,7 +8,7 @@ import { DataTable } from "@/components/data-table"
 import { toast } from "sonner"
 import { columnpembelian } from './kolom-pembelian'
 import { Button } from '@/components/ui/button'
-import { Search, InfoIcon } from "lucide-react"
+import { Search, InfoIcon, Warehouse } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -39,6 +39,10 @@ export default function FormPembelian(){
     const [search, setSearch] = useState("")
     const [searchResults, setSearchResults] = useState<Barang[]>([])
     // const barcodeRef = useRef<HTMLInputElement>(null)
+    const [loadingBayar, setLoadingBayar] = useState(false)
+    const [namaVendor, setNamaVendor] = useState("")
+
+    const totalharga = items.reduce((sum, item) => sum + item.totalharga, 0)
 
     const formatRupiah = (value: number) =>
     new Intl.NumberFormat("id-ID", {
@@ -74,6 +78,46 @@ export default function FormPembelian(){
         setSearch("")
         setSearchResults([])
     }
+
+    const handleBayar = async () => {
+        setLoadingBayar(true)
+        
+        // Hitung total
+        const totalharga = items.reduce((sum, item) => sum + item.totalharga, 0)
+        
+        // Siapkan data untuk API
+        const dataPembelian = {
+            namavendor: namaVendor || null,  // Optional
+            barang: items.map(item => ({
+                id: item.id,
+                jumlah: item.jumlah,
+                harga_beli: item.harga_beli,  // Pastikan ada di CartItem
+                total: item.totalharga,
+                })),
+            totalharga,
+        }
+        
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/transaksi-pembelian`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataPembelian),
+            })
+            
+            if (res.ok) {
+            toast.success('Transaksi Pembelian berhasil! 🎉')
+            clear()  // Kosongkan cart
+            setNamaVendor("")
+            } else {
+            toast.error('Gagal membuat pembelian')
+            }
+        } catch (error) {
+            toast.error('Error koneksi')
+        } finally {
+            setLoadingBayar(false)
+        }
+    }
+
     return(
         <div className="space-y-4">
             <InputGroup>
@@ -81,7 +125,11 @@ export default function FormPembelian(){
             className="font-mono text-xl tracking-widest"
             placeholder="Ketik nama Vendor / distributor" 
             type="text" />
+            <InputGroupAddon align="inline-start">
+            <Warehouse/>
+            </InputGroupAddon>
                 <InputGroupAddon align="inline-end">
+                
                 <Tooltip>
                     <TooltipTrigger asChild>
                     <InputGroupButton
@@ -93,9 +141,11 @@ export default function FormPembelian(){
                     </InputGroupButton>
                     </TooltipTrigger>
                     <TooltipContent>
+                        
                     <p>Nama vendor / distributor opsional</p>
                     </TooltipContent>
                 </Tooltip>
+                
                 </InputGroupAddon>
             
             </InputGroup>
