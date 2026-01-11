@@ -164,7 +164,6 @@ export default function FormPembelian(){
             </InputGroupAddon>
         </InputGroup>
         
-        {/* Dropdown hasil search */}
         {searchResults.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 max-h-64 overflow-y-auto border rounded-lg p-2 bg-background">
             {searchResults.slice(0, 9).map((barang) => (
@@ -189,10 +188,22 @@ export default function FormPembelian(){
 
         <DataTable columns={columnpembelian as any} data={data} />
 
-        <div className="sticky bottom-0 left-0 right-0 bg-background p-6 shadow-2xl">
-
-        </div>
-
+        <div className="flex gap-3 mt-6">
+            <Button
+                variant="destructive" 
+                className="flex-1 h-14 text-xl"
+                onClick={clear}
+            >
+                Hapus Semua
+            </Button>
+            <Button 
+                className="flex-1 h-14 text-xl" 
+                onClick={handleBayar}
+                disabled={loadingBayar || items.length === 0}
+            >
+                {loadingBayar ? "Memproses..." : "Pesan Barang"}
+            </Button>
+            </div>
         </div>
     )
 
