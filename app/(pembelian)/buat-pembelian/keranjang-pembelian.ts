@@ -7,7 +7,8 @@ interface CartItem {
   id: number
   nama_barang: string
   harga_beli: number
-  jumlah: number  // Editable ini
+  jumlah: number ,
+  totalharga: number,
 }
 
 interface CartState {
