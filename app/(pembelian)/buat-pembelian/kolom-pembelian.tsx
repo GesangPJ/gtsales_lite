@@ -56,17 +56,56 @@ export const columnpembelian : ColumnDef<CartItem>[] = [
           )
         },
         cell: ({ row }) => {
-          const harga = parseFloat(row.getValue("harga_jual"))
+          const itemId = row.original.id
+          const hargaBeli = row.original.harga_beli
+          const [editing, setEditing] = useState(false)
+          const [harga, setHarga] = useState(hargaBeli)
           
-          // Format ke Rp
-          const formatted = new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            minimumFractionDigits: 0,  // Hilangkan .00
-          }).format(harga)
+          const formatRupiah = (value: number) =>
+            new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+              minimumFractionDigits: 0,
+            }).format(value)
+
+          const updateHargaBeli = () => {
+            const finalHarga = parseInt(harga.toString()) || hargaBeli
+            useCartStore.getState().updateHargaBeli(itemId, finalHarga)  // Update store
+            setEditing(false)
+          }
     
-          return <div className="text-left font-medium pl-2">{formatted}</div>
-        },
+          return (
+            <div className="text-left font-medium pl-2">
+              {editing ? (
+                // Edit mode: input number
+                <Input
+                  type="number"
+                  min="0"
+                  value={harga}
+                  onChange={(e) => setHarga(parseInt(e.target.value) || 0)}
+                  onBlur={updateHargaBeli}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      updateHargaBeli()
+                    } else if (e.key === 'Escape') {
+                      setHarga(hargaBeli)
+                      setEditing(false)
+                    }
+                  }}
+                  className="w-28 h-9 p-2 text-right bg-transparent hover:bg-transparent focus:bg-transparent focus:ring-1 focus:ring-ring focus:border-ring"
+                  autoFocus
+                />
+              ) : (
+                <div
+                  className="font-medium text-left cursor-pointer hover:bg-accent p-2 rounded hover:opacity-80 transition-all"
+                  onDoubleClick={() => setEditing(true)}  // Double-click untuk edit kolom
+                >
+                  {formatRupiah(hargaBeli)}
+                </div>
+              )}
+            </div>
+            )
+          },
       },
      {
         accessorKey: "jumlah",
