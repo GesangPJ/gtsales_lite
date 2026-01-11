@@ -30,6 +30,7 @@ export async function POST(req: Request){
         })
 
         let newNumber = '00001'
+        let status_pembelian = 'DIPESAN'
 
         // Reset nomor seri jika masuk bulan baru
 
@@ -40,7 +41,7 @@ export async function POST(req: Request){
         const lastTahun = lastDate.getFullYear()
         
             if (bulan === lastBulan && tahun === lastTahun) {
-                // Extract angka 5 digit dari kode (GT/PURCHASE/2026JAN/00001)
+                // Extract angka 5 digit dari kode, contoh : (GT/PURCHASE/2026JAN/00001)
                 const match = lastPembelian.kode.match(/\/(\d{5})$/)  // ✅ Regex safe
                 
                 if (match) {
@@ -56,6 +57,7 @@ export async function POST(req: Request){
             data:{
                 kode:kode_pembelian,
                 nama_vendor,
+                status:status_pembelian,
                 jumlahtotalharga:totalharga,
                 pembeliandetail:{
                     create: barang.map((barang: any)=>({
