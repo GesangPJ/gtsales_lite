@@ -44,7 +44,7 @@ const data = {
   navMain: [
     {
       title: "Kasir",
-      url: "/",
+      url: "/pos",
       icon: IconCashRegister,
       isActive: true,
     },
@@ -88,7 +88,7 @@ const data = {
     },
     {
       title: "Pembelian Barang",
-      url: "/tambah-pembelian",
+      url: "/buat-pembelian",
       icon: IconTruckLoading,
     },
 
