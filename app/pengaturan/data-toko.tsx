@@ -38,46 +38,45 @@ export default async function DataToko() {
   const tarif_ppn = (datatoko[0]?.ppn || 0 ) * 100 + '%'
 
   return(
-    <div className="">
-        <Table className="border-none ">
-                  <TableBody className="text-sm">
-                    <TableRow>
-                      <TableCell className="w-15">Nama Toko</TableCell>
-                      <TableCell className="w-2">:</TableCell>
-                      <TableCell>{datatoko[0]?.nama}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="w-15">Alamat</TableCell>
-                      <TableCell className="w-2">:</TableCell>
-                      <TableCell >{datatoko[0]?.alamat}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="w-15">Telepon</TableCell>
-                      <TableCell className="w-2">:</TableCell>
-                      <TableCell>{datatoko[0]?.notelp}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="w-15">Email</TableCell>
-                      <TableCell className="w-2">:</TableCell>
-                      <TableCell>{datatoko[0]?.email}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="w-15">No. NPWP</TableCell>
-                      <TableCell className="w-2">:</TableCell>
-                      <TableCell>{datatoko[0]?.npwp}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="w-15">No. SIUP</TableCell>
-                      <TableCell className="w-2">:</TableCell>
-                      <TableCell>{datatoko[0]?.siup}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="w-15">Tarif Ppn</TableCell>
-                      <TableCell className="w-2">:</TableCell>
-                      <TableCell>{tarif_ppn}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+    <div>
+      <div className="space-y-2">
+        <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-2">
+          <p className="font-medium text-left w-24">Nama Toko</p>
+          <p className="text-center">:</p>
+          <p>{datatoko[0]?.nama}</p>
+        </div>
+        <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-2">
+          <p className="font-medium text-left w-24">Alamat Toko</p>
+          <p className="text-center">:</p>
+          <p>{datatoko[0]?.alamat}</p>
+        </div>
+        <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-2">
+          <p className="font-medium text-left w-24">No. Telepon</p>
+          <p className="text-center">:</p>
+          <p>{datatoko[0]?.notelp}</p>
+        </div>
+        <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-2">
+          <p className="font-medium text-left w-24">Email Toko</p>
+          <p className="text-center">:</p>
+          <p>{datatoko[0]?.email}</p>
+        </div>
+        <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-2">
+          <p className="font-medium text-left w-24">No. SIUP</p>
+          <p className="text-center">:</p>
+          <p>{datatoko[0]?.siup}</p>
+        </div>
+        <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-2">
+          <p className="font-medium text-left w-24">NPWP Toko</p>
+          <p className="text-center">:</p>
+          <p>{datatoko[0]?.npwp}</p>
+        </div>
+        <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-2">
+          <p className="font-medium text-left w-24">Tarif Ppn</p>
+          <p className="text-center">:</p>
+          <p>{tarif_ppn}</p>
+        </div>
+
+      </div>
     </div>
   )
 
