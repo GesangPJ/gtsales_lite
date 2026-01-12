@@ -20,6 +20,11 @@ import {
   InputGroupInput,
   InputGroupButton,
 } from "@/components/ui/input-group"
+import {
+  ButtonGroup,
+  ButtonGroupText,
+} from "@/components/ui/button-group"
+import { Label } from "@/components/ui/label"
 import { useDebouncedCallback } from "use-debounce" 
 
 type Barang = {
@@ -28,7 +33,6 @@ type Barang = {
     harga_beli: number,
     stok:number,
     jumlah: number,
-    total: number,
     totalharga: number, 
 }
 
@@ -41,8 +45,18 @@ export default function FormPembelian(){
     // const barcodeRef = useRef<HTMLInputElement>(null)
     const [loadingBayar, setLoadingBayar] = useState(false)
     const [namaVendor, setNamaVendor] = useState("")
+    const [biayaKirim, setBiayaKirim] = useState(0)
 
-    const totalharga = items.reduce((sum, item) => sum + item.totalharga, 0)
+    
+    const Reset = () => {
+        clear()
+        setNamaVendor("")
+        setBiayaKirim(0)
+    }
+
+    const total = items.reduce((sum, item) => sum + (item.harga_beli * item.jumlah), 0)
+
+    const totalsemua = total + biayaKirim
 
     const formatRupiah = (value: number) =>
     new Intl.NumberFormat("id-ID", {
@@ -88,6 +102,7 @@ export default function FormPembelian(){
         // Siapkan data untuk API
         const dataPembelian = {
             namavendor: namaVendor || null,  // Optional
+            biayakirim: biayaKirim || null,
             barang: items.map(item => ({
                 id: item.id,
                 jumlah: item.jumlah,
@@ -124,7 +139,10 @@ export default function FormPembelian(){
             <InputGroupInput 
             className="font-mono text-xl tracking-widest"
             placeholder="Ketik nama Vendor / distributor" 
-            type="text" />
+            type="text" 
+            value={namaVendor}  // ✅ Controlled value
+            onChange={(e) => setNamaVendor(e.target.value)}
+            />
             <InputGroupAddon align="inline-start">
             <Warehouse/>
             </InputGroupAddon>
@@ -188,13 +206,49 @@ export default function FormPembelian(){
 
         <DataTable columns={columnpembelian as any} data={data} />
 
-        <div className="flex gap-3 mt-6">
+
+            <div className="flex max-w-[300px]">
+            <InputGroup>
+                <InputGroupInput
+                id="biayaKirim"
+                type="number"
+                min={0}
+                placeholder='masukkan biaya pengiriman'
+                value={biayaKirim}
+                onChange={(e) => setBiayaKirim(parseInt(e.target.value) || 0)}
+                />
+                <InputGroupAddon align="block-start">
+                <Label htmlFor="email-2" className="text-foreground">
+                    Biaya Kirim
+                </Label>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                    <InputGroupButton
+                        variant="ghost"
+                        aria-label="Help"
+                        className="ml-auto rounded-full"
+                        size="icon-xs"
+                    >
+                        <InfoIcon />
+                    </InputGroupButton>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                    <p>Masukkan biaya jika ada biaya pengiriman</p>
+                    </TooltipContent>
+                </Tooltip>
+                </InputGroupAddon>
+            </InputGroup>
+            </div>
+            <div className="text-3xl font-bold text-right mb-4 mr-2">
+            Jumlah Total: {formatRupiah(totalsemua)}
+            </div>
+            <div className="flex gap-3">
             <Button
                 variant="destructive" 
                 className="flex-1 h-14 text-xl"
-                onClick={clear}
+                onClick={Reset}
             >
-                Hapus Semua
+                Reset
             </Button>
             <Button 
                 className="flex-1 h-14 text-xl" 
