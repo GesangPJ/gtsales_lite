@@ -8,6 +8,7 @@ interface CartItem {
   nama_barang: string
   harga_beli: number
   jumlah: number ,
+  total:number,
   totalharga: number,
   stok: number,
 }
@@ -25,7 +26,17 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
-      addItem: (item) => set((state) => ({ items: [...state.items, { ...item }] })),
+      // addItem: (item) => set((state) => ({ items: [...state.items, { ...item }] })),
+      addItem: (item) => set((state) => {
+        const newItem: CartItem = {
+          ...item,
+          total: item.harga_beli * item.jumlah,     // ✅ Hitung total = harga_beli * jumlah
+          totalharga: item.harga_beli * item.jumlah // ✅ Sama dengan total
+        }
+        return { 
+          items: [...state.items, newItem] 
+        }
+      }),
       updateQty: (id, qty: number) => set((state) => ({  // ✅ number
         items: state.items.map(item => 
           item.id === id ? { ...item, jumlah: qty } : item
