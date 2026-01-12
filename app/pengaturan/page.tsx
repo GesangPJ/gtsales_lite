@@ -30,13 +30,13 @@ export default function HalamanPengaturan() {
           <div className="@container/main flex flex-1 flex-col gap-2">
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
               <div className="px-4 lg:px-6">
-                    <h1 className="text-2xl font-bold">Pengaturan Toko</h1>
+                    <h1 className="text-2xl font-bold">Detail Toko</h1>
                 </div>
               <div className="px-6 lg:px-6">
                 <DataToko />
               </div>
               <div className="px-4 lg:px-6">
-                <Button size="lg" className="text-base" >
+                <Button size="sm" className="text-sm" >
                     <SquarePen className="h-12 w-12"/>
                     <Link href="/pengaturan/edit-toko">
                     Ubah Data Toko
