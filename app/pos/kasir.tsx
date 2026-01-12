@@ -61,6 +61,8 @@ export default function FormKasir(){
             minimumFractionDigits: 0 
         }).format(total)
     }
+
+    
     
     // Sync data dengan store
     useEffect(() => {
