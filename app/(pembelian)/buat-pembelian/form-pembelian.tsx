@@ -33,7 +33,8 @@ type Barang = {
     harga_beli: number,
     stok:number,
     jumlah: number,
-    totalharga: number, 
+    total:number,
+    totalharga: number,
 }
 
 export default function FormPembelian(){
@@ -77,7 +78,7 @@ export default function FormPembelian(){
         }
         
         try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/cari-barang?q=${encodeURIComponent(query)}`)
+        const res = await fetch(`/api/cari-barang?q=${encodeURIComponent(query)}`)
         if (res.ok) {
             const results = await res.json()
             setSearchResults(results)
@@ -101,19 +102,19 @@ export default function FormPembelian(){
         
         // Siapkan data untuk API
         const dataPembelian = {
-            namavendor: namaVendor || null,  // Optional
-            biayakirim: biayaKirim || null,
+            namavendor: namaVendor || null,
+            biayakirim: biayaKirim || 0,
+            totalharga: totalsemua,  // parseInt di server
             barang: items.map(item => ({
                 id: item.id,
                 jumlah: item.jumlah,
-                harga_beli: item.harga_beli,  // Pastikan ada di CartItem
+                harga_beli: item.harga_beli,
                 total: item.totalharga,
-                })),
-            totalharga,
+            }))
         }
         
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/transaksi-pembelian`, {
+            const res = await fetch(`/api/transaksi-pembelian`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dataPembelian),
