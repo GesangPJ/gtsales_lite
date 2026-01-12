@@ -9,6 +9,7 @@ interface CartItem {
   harga_beli: number
   jumlah: number ,
   totalharga: number,
+  stok: number,
 }
 
 interface CartState {
