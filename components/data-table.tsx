@@ -106,8 +106,15 @@ export function DataTable<TData, TValue>({
           {table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} className="">
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                {row.getVisibleCells().map((cell, index) => (
+                  <TableCell key={cell.id}
+                  className={
+                    // ✅ Border kanan kecuali kolom terakhir
+                    index < row.getVisibleCells().length - 1 
+                      ? "border-r border-border/50" 
+                      : ""
+                  }
+                    >
                     {flexRender(
                       cell.column.columnDef.cell,
                       cell.getContext()
