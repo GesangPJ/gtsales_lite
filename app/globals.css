@@ -4,6 +4,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@media (max-width: 768px) {
+  /* Force dropdown buka atas + full viewport */
+  [data-radix-popper-content-wrapper] {
+    max-height: 70vh !important;
+    margin-top: -8px !important;
+  }
+  
+  /* Position atas trigger */
+  [data-radix-popper-content-wrapper][data-side="top"] {
+    margin-bottom: 8px !important;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
