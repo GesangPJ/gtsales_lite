@@ -70,14 +70,13 @@ export const columnpembelian : ColumnDef<CartItem>[] = [
 
           const updateHargaBeli = () => {
             const finalHarga = parseInt(harga.toString()) || hargaBeli
-            useCartStore.getState().updateHargaBeli(itemId, finalHarga)  // Update store
+            useCartStore.getState().updateHargaBeli(itemId, finalHarga)
             setEditing(false)
           }
     
           return (
             <div className="text-left font-medium pl-2">
               {editing ? (
-                // Edit mode: input number
                 <Input
                   type="number"
                   min="0"
@@ -98,7 +97,7 @@ export const columnpembelian : ColumnDef<CartItem>[] = [
               ) : (
                 <div
                   className="font-medium text-left cursor-pointer hover:bg-accent p-2 rounded hover:opacity-80 transition-all"
-                  onDoubleClick={() => setEditing(true)}  // Double-click untuk edit kolom
+                  onDoubleClick={() => setEditing(true)}  // Double klik untuk edit kolom
                 >
                   {formatRupiah(hargaBeli)}
                 </div>
@@ -146,7 +145,7 @@ export const columnpembelian : ColumnDef<CartItem>[] = [
         header: "Total Harga",
         cell: ({ row }) => {
           const harga = row.original.harga_beli
-          const jumlah = row.original.jumlah  // Dari store
+          const jumlah = row.original.jumlah
           const total = harga * jumlah
           
           const formatted = new Intl.NumberFormat("id-ID", {
@@ -165,7 +164,6 @@ export const columnpembelian : ColumnDef<CartItem>[] = [
           return (
             <div>
               <Button
-              // variant="destructive"
               size="icon"
               className=" bg-red-600 hover:bg-red-300 rounded-none rounded-b-none"
               onClick={() => useCartStore.getState().removeItem(row.original.id)}
