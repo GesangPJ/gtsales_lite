@@ -20,14 +20,19 @@ export const columns: ColumnDef<Barang>[] = [
 
   {
     id: "no",
-    header: "No",
+    // header: "No",
+    header: () => {
+      return (
+          <div className="text-center w-1.5">No.</div>
+      )
+    },
     size: 10,
     cell: ({ row, table }) => {
       // Index berdasarkan row yang sedang ditampilkan (respect sorting & filtering)
       const sortedRows = table.getSortedRowModel().flatRows
       const index =
         sortedRows.findIndex((r) => r.id === row.id) // posisi row saat ini
-      return <span>{index + 1}</span>
+      return <p className="text-center">{index + 1}.</p>
     },
     enableSorting: false, // nomor urut tidak perlu disort
   },
@@ -52,7 +57,8 @@ export const columns: ColumnDef<Barang>[] = [
     accessorKey: "harga_jual",
     header: ({ column }) => {
       return (
-        <Button
+        <div className="w-8">
+          <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className="text-left"
@@ -60,6 +66,7 @@ export const columns: ColumnDef<Barang>[] = [
           Harga Jual
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
+        </div>
       )
     },
     cell: ({ row }) => {
@@ -79,13 +86,16 @@ export const columns: ColumnDef<Barang>[] = [
     accessorKey: "harga_beli",
     header: ({ column }) => {
       return (
-        <Button
+        <div className="w-8">
+          <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Harga Beli
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
+        </div>
+        
       )
     },
     cell: ({ row }) => {
@@ -105,12 +115,15 @@ export const columns: ColumnDef<Barang>[] = [
     accessorKey: "namaKategori",
     size:30,
     header: ({ column }) => (
-      < Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="h-8 px-2"
-      >
+      <div className="w-8">
+        < Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="h-8 px-2"
+        >
         Kategori
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
+      </div>
+      
     ),
     cell: ({ row }) => (
       <div className="capitalize pl-2">
@@ -120,37 +133,22 @@ export const columns: ColumnDef<Barang>[] = [
   },
   {
     accessorKey: "stok",
-    header: "Stok",
+    // header: "Stok",
+    header: () => {
+      return ( <div className="w-3 text-center">Stok Barang</div>  )
+    },
+    cell: ({row}) => {
+      return(
+        <div className="text-center">
+          {row.getValue("stok")}
+        </div>
+      )
+    }
   },
   {
     accessorKey: "barcode",
-    header: "Barcode",
+    header: () => {
+      return ( <div className="text-center">Barcode</div>  )
+    },
   },
-//   {
-//     accessorKey: "kadaluarsa",
-//     header: ({ column }) => (
-//       <Button
-//         variant="ghost"
-//         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-//         className="h-8 px-2"
-//       >
-//         Kadaluarsa
-//         <ArrowUpDown className="ml-2 h-4 w-4" />
-//       </Button>
-//     ),
-//     cell: ({ row }) => {
-//       const value = row.getValue("kadaluarsa") as string
-      
-//       // ✅ Fallback "-" kalau kosong/null
-//       if (!value || value === "null") {
-//         return <div className="pl-2 text-left">tidak ada data</div>
-//       }
-      
-//       // Format ISO → DD-MM-YYYY
-//       const [datePart] = value.split("T")
-//       const [year, month, day] = datePart.split("-")
-      
-//       return <div>{`${day}-${month}-${year}`}</div>
-//   },
-// },
 ]
