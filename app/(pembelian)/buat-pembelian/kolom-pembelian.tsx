@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, X} from "lucide-react"
+import { ArrowUpDown, Trash, X} from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useCartStore } from './keranjang-pembelian'
 
@@ -109,6 +109,7 @@ export const columnpembelian : ColumnDef<CartItem>[] = [
       },
      {
         accessorKey: "jumlah",
+        size:32,
         header: "Jumlah",
         cell: ({ row }) => {
           const itemId = row.original.id
@@ -154,22 +155,25 @@ export const columnpembelian : ColumnDef<CartItem>[] = [
             minimumFractionDigits: 0,
           }).format(total)
           
-          return <div className="text-right font-medium">{formatted}</div>
+          return <div className="text-left font-medium">{formatted}</div>
         },
       },
       {
         id: "delete",
-        header: " ",
+        header: () => <div className="w-2 max-w-3">Hapus</div>,
         cell: ({ row }) => {
           return (
-            <Button
-              variant="ghost"
+            <div>
+              <Button
+              // variant="destructive"
               size="icon"
-              className="h-8 w-8"
+              className=" bg-red-600 hover:bg-red-300 rounded-none rounded-b-none"
               onClick={() => useCartStore.getState().removeItem(row.original.id)}
             >
-              <X className="h-4 w-4" />
+              <X className="w-64 h-64 text-white" />
             </Button>
+            </div>
+            
           )
         },
       },
