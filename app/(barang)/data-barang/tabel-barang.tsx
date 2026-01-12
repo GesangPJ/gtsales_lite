@@ -21,13 +21,14 @@ type Barang = {
 }
 
 export default async function TabelBarang(){
+    //${process.env.NEXT_PUBLIC_BASE_URL}
     let barangs : Barang[] = []
     let kategoris: Kategori[] = []
 
     try{
         const [respon1, respon2] = await Promise.all([
-            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ambil-kategori`),
-            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ambil-barang`)
+            fetch(`/api/ambil-kategori`),
+            fetch(`/api/ambil-barang`)
 
         ])
 
