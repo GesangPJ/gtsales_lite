@@ -84,7 +84,7 @@ export default function FormKasir(){
         }
         
         try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/cari-barang?q=${encodeURIComponent(query)}`)
+        const res = await fetch(`/api/cari-barang?q=${encodeURIComponent(query)}`)
         if (res.ok) {
             const results = await res.json()
             setSearchResults(results)
@@ -129,16 +129,11 @@ export default function FormKasir(){
 
     return(
         <div className="space-y-4">
-        {/* Recent Items (opsional) */}
-        <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-2 mb-4">
-            {/* 12 item terakhir */}
-        </div>
         
-        {/* Barcode Scanner (prioritas #1) */}
         <InputGroup className="mb-4">
             <InputGroupInput
             ref={barcodeRef}
-            placeholder="Masukkan Barcode (min 8 digit)"
+            placeholder="Barcode (min 8 digit)"
             value={barcode}
             onChange={(e) => setBarcode(e.target.value)}
             className="text-xl tracking-widest font-mono"
@@ -186,11 +181,7 @@ export default function FormKasir(){
             ))}
             </div>
         )}
-        
-        {/* Cart Table */}
         <DataTable columns={columns as any} data={data} />
-        
-        {/* Footer Total & Bayar */}
         <div className="sticky bottom-0 left-0 right-0 bg-background p-6 shadow-2xl">
             <div className="">
                 <ButtonGroup>
