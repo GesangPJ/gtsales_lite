@@ -12,6 +12,8 @@ import {
   IconSettings,
   IconStack3,
   IconTableFilled,
+  IconLayoutDashboard,
+  IconReceipt,
 } from "@tabler/icons-react"
 import Link from "next/link"
 
@@ -38,9 +40,13 @@ const data = {
   navMain: [
     {
       title: "Kasir",
-      url: "/pos",
+      url: "/",
       icon: IconCashRegister,
-      isActive: true,
+    },
+    {
+      title: "Dashboard",
+      url:"/dashboard",
+      icon: IconLayoutDashboard,
     },
     {
       title: "Data Penjualan",
@@ -84,6 +90,11 @@ const data = {
       title: "Pembelian Barang",
       url: "/buat-pembelian",
       icon: IconTruckLoading,
+    },
+    {
+      title: "Status Pembelian",
+      url: "/status-pembelian",
+      icon: IconReceipt,
     },
 
   ],
