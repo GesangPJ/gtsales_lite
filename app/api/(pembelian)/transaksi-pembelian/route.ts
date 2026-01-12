@@ -7,7 +7,11 @@ export async function POST(req: Request){
     try{
         const body = await req.json()
 
-        const {namavendor, barang, totalharga}= body
+        const { namavendor, barang, totalharga, biayakirim, jumlahtotalharga } = body
+
+        if (!barang || barang.length === 0) {
+            return NextResponse.json({ error: "Data Barang Kosong!" }, { status: 400 })
+        }
 
         const nama_vendor = namavendor
 
@@ -57,13 +61,14 @@ export async function POST(req: Request){
             data:{
                 kode:kode_pembelian,
                 nama_vendor,
+                biayakirim,
                 status:status_pembelian,
-                jumlahtotalharga:totalharga,
+                jumlahtotalharga: parseInt(jumlahtotalharga || totalharga || '0'),
                 pembeliandetail:{
                     create: barang.map((barang: any)=>({
                         barangId: barang.id,
                         jumlah: barang.jumlah,
-                        hargabeli: barang.harga,
+                        hargabeli: barang.harga_beli,
                         total: barang.total,
                     })),
                 }
