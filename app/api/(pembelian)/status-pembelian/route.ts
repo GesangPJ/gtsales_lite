@@ -12,11 +12,12 @@ export async function GET(_req: NextRequest){
                 kode:true,
                 status:true,
                 nama_vendor:true,
+                biayakirim:true,
                 jumlahtotalharga:true,
             },
         })
 
-        if(!statuspembelian){
+        if(statuspembelian.length === 0){
             return NextResponse.json({ 
                     success: false, 
                     message: "Data Pembelian tidak ditemukan" 
