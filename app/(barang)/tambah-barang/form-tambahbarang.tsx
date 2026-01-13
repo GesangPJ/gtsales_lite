@@ -18,16 +18,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import {CirclePlus} from "lucide-react"
+import { baseUrl } from '@/lib/base-url'
 
 type Kategori = {
   id: number
@@ -51,15 +43,10 @@ export default function FormTambahBarang() {
         setSelectedKategori(null)  // reset kategori
     }
 
-    // mengatasi error API tidak bisa di mobile
-    // const baseUrl = typeof window !== 'undefined'
-    //   ? window.location.origin 
-    //   : 'http://localhost:3000'
-
     // ambil nama kategori dari API
     async function getKategori() {
         try {
-        const res = await fetch(`/api/ambil-kategori`)
+        const res = await fetch(`${baseUrl}/api/ambil-kategori`)
         if (!res.ok) throw new Error("Gagal ambil data kategori")
         const data: Kategori[] = await res.json()
         setKategoris(data)
