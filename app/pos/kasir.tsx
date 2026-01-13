@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/button-group"
 import { Label } from "@/components/ui/label"
 import { useDebouncedCallback } from "use-debounce" 
+import { baseUrl } from '@/lib/base-url'
 
 type Barang = {
     id: number,
@@ -84,7 +85,7 @@ export default function FormKasir(){
         }
         
         try {
-        const res = await fetch(`/api/cari-barang?q=${encodeURIComponent(query)}`)
+        const res = await fetch(`${baseUrl}/api/cari-barang?q=${encodeURIComponent(query)}`)
         if (res.ok) {
             const results = await res.json()
             setSearchResults(results)
@@ -97,7 +98,7 @@ export default function FormKasir(){
     // Barcode Scan
     const handleBarcodeScan = async (code: string) => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/car-barang-barcode`, {
+      const res = await fetch(`${baseUrl}/api/car-barang-barcode`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ barcodebarang: code })
