@@ -2,6 +2,7 @@
 
 import { columns } from "./column"
 import { DataTable } from "@/components/data-table"
+import { baseUrl } from "@/lib/base-url"
 
 type Kategori = {
   id: number
@@ -27,8 +28,8 @@ export default async function TabelBarang(){
 
     try{
         const [respon1, respon2] = await Promise.all([
-            fetch(`/api/ambil-kategori`),
-            fetch(`/api/ambil-barang`)
+            fetch(`${baseUrl}/api/ambil-kategori`),
+            fetch(`${baseUrl}/api/ambil-barang`)
 
         ])
 
