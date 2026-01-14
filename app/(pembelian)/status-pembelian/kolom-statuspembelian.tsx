@@ -4,12 +4,11 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown} from "lucide-react"
 
-type Pembelian = {
+export type Pembelian = {
   id: number,
-  nama_vendor: string,
-  harga_beli: number,
+  kode:string,
+  status:string,
   jumlahtotalharga: number,
-  biayakirim: number,
 }
 
 export const columns: ColumnDef<Pembelian>[] = [
@@ -34,7 +33,8 @@ export const columns: ColumnDef<Pembelian>[] = [
   },
    {
     accessorKey: "kode",
-    size:50,
+    minSize:50,
+    size:100,
     header: ({ column }) => (
       < Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         className="h-8 px-2"
@@ -49,32 +49,32 @@ export const columns: ColumnDef<Pembelian>[] = [
       </div>
     ),
   },
-  
-  {
-    accessorKey: "nama_vendor",
-    size:50,
-    header: ({ column }) => (
-      < Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="h-8 px-2"
-      >
-        Vendor / Distributor
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => (
-      <div className="capitalize pl-2">
-        {row.getValue("nama_vendor")}
-      </div>
-    ),
-  },
+  // {
+  //   accessorKey: "nama_vendor",
+  //   size:50,
+  //   header: ({ column }) => (
+  //     < Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       className="h-8 px-2"
+  //     >
+  //       Vendor / Distributor
+  //       <ArrowUpDown className="ml-2 h-4 w-4" />
+  //     </Button>
+  //   ),
+  //   cell: ({ row }) => (
+  //     <div className="capitalize pl-2">
+  //       {row.getValue("nama_vendor")}
+  //     </div>
+  //   ),
+  // },
   {
     accessorKey: "status",
+    minSize:32,
     size:50,
     header: ({ column }) => (
       < Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         className="h-8 px-2"
       >
-        Status Pembelian
+        Status
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -87,9 +87,11 @@ export const columns: ColumnDef<Pembelian>[] = [
 
   {
     accessorKey: "jumlahtotalharga",
+    size:50,
+    minSize:32,
     header: ({ column }) => {
       return (
-        <div className="w-8">
+        
           <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
@@ -97,7 +99,7 @@ export const columns: ColumnDef<Pembelian>[] = [
           Jumlah Total
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-        </div>
+        
         
       )
     },
@@ -114,33 +116,33 @@ export const columns: ColumnDef<Pembelian>[] = [
       return <div className="text-left font-medium pl-2">{formatted}</div>
     },
   },
-  {
-    accessorKey: "biayakirim",
-    header: ({ column }) => {
-      return (
-        <div className="w-8">
-          <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Biaya Kirim
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-        </div>
+  // {
+  //   accessorKey: "biayakirim",
+  //   header: ({ column }) => {
+  //     return (
+  //       <div className="w-8">
+  //         <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         Biaya Kirim
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //       </div>
         
-      )
-    },
-    cell: ({ row }) => {
-      const harga = parseFloat(row.getValue("biayakirim"))
+  //     )
+  //   },
+  //   cell: ({ row }) => {
+  //     const harga = parseFloat(row.getValue("biayakirim"))
       
-      // Format ke Rp
-      const formatted = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        minimumFractionDigits: 0,
-      }).format(harga)
+  //     // Format ke Rp
+  //     const formatted = new Intl.NumberFormat("id-ID", {
+  //       style: "currency",
+  //       currency: "IDR",
+  //       minimumFractionDigits: 0,
+  //     }).format(harga)
 
-      return <div className="text-left font-medium pl-2">{formatted}</div>
-    },
-  },
+  //     return <div className="text-left font-medium pl-2">{formatted}</div>
+  //   },
+  // },
 ]
