@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown} from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 
 type Pembelian = {
   id: number,
@@ -78,25 +79,57 @@ export const columns: ColumnDef<Pembelian>[] = [
     ),
   },
   {
-    accessorKey: "status",
-    size:50,
-    minSize:32,
-    header: ({ column }) => (
-      <div>
-          < Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="h-8 px-2"
-        >
-          Status
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      </div>
+  accessorKey: "status",
+  size: 50,  // Lebar cukup untuk badge
+  minSize: 32,
+  header: ({ column }) => (
+    <Button 
+      variant="ghost" 
+      onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      className="h-8 px-2"
+    >
+      Status
+      <ArrowUpDown className="ml-2 h-4 w-4" />
+    </Button>
+  ),
+    cell: ({ row }) => {
+      const status = row.getValue("status") as string
       
-    ),
-    cell: ({ row }) => (
-      <div className="capitalize pl-2">
-        {row.getValue("status")}
-      </div>
-    ),
+      const getBadgeVariant = (status: string) => {
+        switch (status.toUpperCase()) {
+          case 'DIPESAN':
+            return 'default'
+          case 'BATAL':
+            return 'destructive'
+          case 'SELESAI':
+            return 'default'  // Background hijau pakai className
+          default:
+            return 'secondary'
+        }
+      }
+      
+      const getBadgeClass = (status: string) => {
+        switch (status.toUpperCase()) {
+          case 'SELESAI':
+            return 'bg-green-500 hover:bg-green-500 text-black border-green-500'
+          case 'BATAL':
+            return 'bg-destructive hover:bg-destructive text-destructive-foreground border-destructive'
+          default:
+            return ''
+        }
+      }
+      
+      return (
+        <div className="pl-2">
+          <Badge 
+            variant={getBadgeVariant(status)}
+            className={getBadgeClass(status)}
+          >
+            {status.toUpperCase()}
+          </Badge>
+        </div>
+      )
+    },
   },
 
   {
