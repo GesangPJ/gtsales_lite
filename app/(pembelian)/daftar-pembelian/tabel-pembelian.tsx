@@ -4,15 +4,7 @@
 import { DataTable } from "@/components/data-table"
 import {columns} from "./kolom-datapembelian"
 import { baseUrl } from "@/lib/base-url"
-
-type Pembelian = {
-  id: number,
-  nama_vendor: string,
-  harga_beli: number,
-  status: string,
-  jumlahtotalharga: number,
-  biayakirim: number,
-}
+import { Pembelian } from "./kolom-datapembelian"
 
 
 export default async function TabelPembelian(){
@@ -20,7 +12,7 @@ export default async function TabelPembelian(){
     let data_pembelian: Pembelian[] = []
 
     try{
-        const res = await fetch(`${baseUrl}/api/status-pembelian`, 
+        const res = await fetch(`${baseUrl}/api/transaksi-pembelian`, 
             {next: {revalidate: 3600} })
 
         if(!res.ok){
