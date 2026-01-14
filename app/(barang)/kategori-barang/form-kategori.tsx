@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import {CircleCheckBig} from "lucide-react"
+import { baseUrl } from '@/lib/base-url'
 
 export default function FormInputKategori(){
     const [loading, setLoading] = useState(false)
@@ -25,7 +26,7 @@ export default function FormInputKategori(){
     setLoading(true)
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/simpan-kategori`, {
+      const res = await fetch(`${baseUrl}/api/simpan-kategori`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

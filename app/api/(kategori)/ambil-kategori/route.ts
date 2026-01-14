@@ -16,6 +16,7 @@ export async function GET(_req: NextRequest) {
     return NextResponse.json(kategoris, { status: 200 })
   } catch (error: unknown) {
     console.error("Data Kategori tidak dapat diambil", error)
+    console.log("Data kategori tidak dapat diambil")
 
     return NextResponse.json(
       { error: "Terjadi kesalahan saat mengambil data kategori" },

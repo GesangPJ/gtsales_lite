@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, X} from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { useCartStore } from '@/cart/keranjang'
+import { useCartStore } from './keranjang'
 
 
 type CartItem = {

@@ -4,26 +4,22 @@ import * as React from "react"
 import {
   IconCategoryPlus,
   IconDatabaseDollar,
-  IconDatabase,
   IconCashRegister,
-  IconFileWord,
-  IconBuildingWarehouse,
   IconHelp,
   IconTruckLoading,
   IconAppsFilled,
   IconCubePlus,
-  IconReport,
-  IconPackages,
   IconSettings,
   IconStack3,
-  IconDatabaseExport,
   IconTableFilled,
+  IconLayoutDashboard,
+  IconReceipt,
 } from "@tabler/icons-react"
+import Link from "next/link"
 
-import { NavDocuments } from "@/components/nav-documents"
+
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
   SidebarContent,
@@ -46,7 +42,11 @@ const data = {
       title: "Kasir",
       url: "/",
       icon: IconCashRegister,
-      isActive: true,
+    },
+    {
+      title: "Dashboard",
+      url:"/dashboard",
+      icon: IconLayoutDashboard,
     },
     {
       title: "Data Penjualan",
@@ -82,14 +82,19 @@ const data = {
   ],
   navVendor:[
     {
-      title: "Data Pembelian",
+      title: "Daftar Pembelian",
       url: "/daftar-pembelian",
-      icon: IconDatabaseExport,
+      icon: IconTableFilled,
     },
     {
       title: "Pembelian Barang",
-      url: "/tambah-pembelian",
+      url: "/buat-pembelian",
       icon: IconTruckLoading,
+    },
+    {
+      title: "Status Pembelian",
+      url: "/status-pembelian",
+      icon: IconReceipt,
     },
 
   ],
@@ -118,13 +123,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:p-1.6"
+              data-logo
+              className="data-[slot=sidebar-menu-button]:p-1.6 hover:bg-transparent hover:text-foreground"
             >
-              <a href="/">
+              <Link href="/" className="hover:bg-none">
                 <IconAppsFilled size={64} />
                 <span className="text-base font-semibold">GTSALES LITE </span>
                 <AppInfo/>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

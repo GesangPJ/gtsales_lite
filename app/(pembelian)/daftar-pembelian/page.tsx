@@ -4,8 +4,7 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
-
-// import data from "./data.json"
+import TabelPembelian from "./tabel-pembelian"
 
 export default function HalamanPembelian() {
   return (
@@ -26,11 +25,11 @@ export default function HalamanPembelian() {
             
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                 <div className="px-4 lg:px-6">
-                    <h1 className="text-2xl font-bold">Data Pembelian</h1>
+                    <h1 className="text-2xl font-bold">Daftar Pembelian</h1>
                 </div>
              
               <div className="px-4 lg:px-6">
-                
+                <TabelPembelian/>
               </div>
               
             </div>

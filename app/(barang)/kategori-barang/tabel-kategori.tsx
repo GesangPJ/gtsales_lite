@@ -2,6 +2,7 @@
 
 import { columns } from "./column"
 import { DataTable } from "@/components/data-table"
+import { baseUrl } from "@/lib/base-url"
 
 type Kategori = {
   id: number
@@ -13,8 +14,8 @@ export default async function TabelKategori() {
     let kategoris: Kategori[] = []
     
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ambil-kategori`, {
-        next: { revalidate: 120 }, // Revalidate setiap X detik
+      const res = await fetch(`${baseUrl}/api/ambil-kategori`, {
+        next: { revalidate: 3600 }, // Revalidate setiap X detik
       })
       
       if (!res.ok) {       

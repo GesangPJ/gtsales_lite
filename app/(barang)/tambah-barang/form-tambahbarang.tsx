@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {CirclePlus} from "lucide-react"
+import { baseUrl } from '@/lib/base-url'
 
 type Kategori = {
   id: number
@@ -32,14 +33,20 @@ export default function FormTambahBarang() {
     const [loading, setLoading] = useState(false)
     const [kategoris, setKategoris] = useState<Kategori[]>([])
     const [selectedKategori, setSelectedKategori] = useState<Kategori | null>(null)
+    const [selectedKategoriId, setSelectedKategoriId] = useState<string>("")
     const formRef = useRef<HTMLFormElement>(null)
 
+    // reset form jika tombol reset diklik
+    const clear = () => {
+        formRef.current?.reset() 
+        setValue("")   // reset keterangan
+        setSelectedKategori(null)  // reset kategori
+    }
+
+    // ambil nama kategori dari API
     async function getKategori() {
         try {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/ambil-kategori`,
-            { cache: "no-store" }
-        )
+        const res = await fetch(`${baseUrl}/api/ambil-kategori`)
         if (!res.ok) throw new Error("Gagal ambil data kategori")
         const data: Kategori[] = await res.json()
         setKategoris(data)
@@ -51,6 +58,12 @@ export default function FormTambahBarang() {
     useEffect(() => {
         getKategori()
     }, [])
+
+    const handleSelectKategori = (id: string) => {
+        setSelectedKategoriId(id)
+        const kategori = kategoris.find(k => k.id.toString() === id)
+        setSelectedKategori(kategori || null)
+    }
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -73,7 +86,7 @@ export default function FormTambahBarang() {
         setLoading(true)
 
         try{
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/tambah-barang`,{
+            const res = await fetch(`${baseUrl}/api/tambah-barang`,{
             method: "POST",
             headers:{
                 "Content-Type": "application/json",
@@ -99,6 +112,28 @@ export default function FormTambahBarang() {
             <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="nama_barang" className="text-lg">Nama Barang</Label>
                     <Input type="text" id="nama_barang" name="nama_barang" placeholder="Masukkan Nama Barang"  className="border" required/>
+                    <div className="mt-3 mb-3">
+                        {/* <Label htmlFor="keterangan" className=" text-lg min-w-0 whitespace-nowrap">Pilih Kategori</Label> */}
+                            <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline">
+                                    {selectedKategori
+                                        ? selectedKategori.nama_kategori
+                                        : "Pilih Kategori"}{" "}
+                                    <IconArrowBadgeDownFilled className="ml-2" /></Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56 max-h-60 overflow-y-auto p-1" align="start">
+                                {kategoris.map((kategori) => (
+                                <DropdownMenuItem
+                                    key={kategori.id}
+                                    onClick={() => setSelectedKategori(kategori)}
+                                >
+                                    {kategori.nama_kategori}
+                                </DropdownMenuItem>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
                 </div>&nbsp;
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="harga_jual" className="text-lg">Harga Jual</Label>
@@ -113,6 +148,10 @@ export default function FormTambahBarang() {
                         <InputGroupText>Rp</InputGroupText>
                     </InputGroupAddon>
                     </InputGroup>
+                    
+                </div>&nbsp;
+                <div className="flex items-center gap-3">
+                        
                 </div>&nbsp;
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="harga_beli" className="text-lg">Harga Beli</Label>
@@ -124,16 +163,25 @@ export default function FormTambahBarang() {
                     </InputGroup>
                 </div>&nbsp;
                 <div className="grid w-full max-w-sm items-center gap-3">
-                    <Label htmlFor="barcode" className="text-lg">Barcode</Label>
+                    <Label htmlFor="barcode" className="text-lg">Kode Barcode Barang</Label>
                     <InputGroup  className="border">
-                    <InputGroupInput type="number" id="barcode" name="barcode" placeholder="Kode Barcode Opsional"/>
+                    <InputGroupInput 
+                    type="number"
+                    inputMode='numeric'
+                    min={0}
+                    minLength={8}
+                    maxLength={14}
+                    pattern="[0-9]*"
+                    id="barcode" 
+                    name="barcode" 
+                    placeholder="Kode Barcode Opsional"/>
                     </InputGroup>
                 </div>&nbsp;
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="stok" className="text-lg">Stok Awal</Label>
                     <Input 
                       className="border"
-                    defaultValue="0" 
+                    min={0}
                     type="number" 
                     id="stok"
                     name="stok" 
@@ -160,30 +208,16 @@ export default function FormTambahBarang() {
                         </InputGroupAddon>
                     </InputGroup>
                 </div>&nbsp;
-                <div className="flex items-center gap-3">
-                    <Label htmlFor="keterangan" className=" text-lg min-w-0 whitespace-nowrap">Pilih Kategori</Label>
-                    <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline">
-                            {selectedKategori
-                                ? selectedKategori.nama_kategori
-                                : "Pilih Kategori"}{" "}
-                            <IconArrowBadgeDownFilled className="ml-2" /></Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56 max-h-60 overflow-y-auto p-1" align="start">
-                        {kategoris.map((kategori) => (
-                        <DropdownMenuItem
-                            key={kategori.id}
-                            onClick={() => setSelectedKategori(kategori)}
-                        >
-                            {kategori.nama_kategori}
-                        </DropdownMenuItem>
-                        ))}
-                    </DropdownMenuContent>
-                </DropdownMenu>
-                </div>
-                <div className="mt-4">
-                <Button type="submit" disabled={loading || !selectedKategori}>
+                
+                <div className="flex gap-3 mt-6">
+                <Button
+                    variant="destructive" 
+                    className="flex-1 h-14 text-xl"
+                    onClick={clear}
+                >
+                    Reset
+                </Button>
+                <Button type="submit" disabled={loading || !selectedKategori} className="flex-1 h-14 text-xl" >
                     <CirclePlus className="h-12 w-12" />
                     {loading ? "Menyimpan..." : "Tambah Barang"}
                 </Button>

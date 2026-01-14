@@ -106,8 +106,15 @@ export function DataTable<TData, TValue>({
           {table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow key={row.id} className="">
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                {row.getVisibleCells().map((cell, index) => (
+                  <TableCell key={cell.id}
+                  className={
+                    // ✅ Border kanan kecuali kolom terakhir
+                    index < row.getVisibleCells().length - 1 
+                      ? "border-r border-border/50" 
+                      : ""
+                  }
+                    >
                     {flexRender(
                       cell.column.columnDef.cell,
                       cell.getContext()
@@ -131,25 +138,6 @@ export function DataTable<TData, TValue>({
       </div>
 
       <div>
-        {/* <div className="m-3">
-          <Select
-            value={String(table.getState().pagination.pageSize)}
-            onValueChange={(value) => table.setPageSize(Number(value))}
-          >
-            <SelectTrigger className="w-[120px] rounded-xl">
-              <SelectValue placeholder="Pilih" />
-            </SelectTrigger>
-
-            <SelectContent>
-              {[5, 10, 20, 50].map((size) => (
-                <SelectItem key={size} value={String(size)}>
-                  {size} Baris
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div> */}
-
         <div className="grid grid-cols-3 items-center p-3 m-3">
           {/* KIRI */}
           <div className="justify-self-start">

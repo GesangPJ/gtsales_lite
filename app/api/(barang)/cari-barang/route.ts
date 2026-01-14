@@ -21,6 +21,8 @@ export async function GET(req: NextRequest) {
         id: true,
         nama_barang: true,
         harga_jual: true,
+        harga_beli: true,
+        stok: true,
       },
       take: 10  // Max 10 hasil
     })
