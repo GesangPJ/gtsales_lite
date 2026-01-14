@@ -17,7 +17,7 @@ export default async function TabelStatus(){
     let status_p: Pembelian[] = []
 
     try{
-        const res = await fetch(`${baseUrl}/api/status-pembelian`, 
+        const res = await fetch(`${baseUrl}/api/status-dipesan`, 
             {next: {revalidate: 3600} })
 
         if(!res.ok){
