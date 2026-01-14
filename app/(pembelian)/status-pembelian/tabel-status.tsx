@@ -5,19 +5,13 @@ import {columns} from "./kolom-statuspembelian"
 import { Pembelian } from "./kolom-statuspembelian"
 import { baseUrl } from "@/lib/base-url"
 
-// type Pembelian = {
-//   id: number,
-//   harga_beli: number,
-//   jumlahtotalharga: number,
-// }
-
 
 export default async function TabelStatus(){
 
     let status_p: Pembelian[] = []
 
     try{
-        const res = await fetch(`${baseUrl}/api/status-dipesan`, 
+        const res = await fetch(`${baseUrl}/api/status-pembelian`, 
             {next: {revalidate: 3600} })
 
         if(!res.ok){
