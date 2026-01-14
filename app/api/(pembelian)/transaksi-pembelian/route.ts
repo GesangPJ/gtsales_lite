@@ -69,7 +69,7 @@ export async function POST(req: Request){
                         barangId: barang.id,
                         jumlah: barang.jumlah,
                         hargabeli: barang.harga_beli,
-                        total: barang.total,
+                        total: barang.harga_beli * barang.jumlah,
                     })),
                 }
             }
