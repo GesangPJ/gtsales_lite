@@ -13,7 +13,7 @@ export default async function TabelPembelian(){
 
     try{
         const res = await fetch(`${baseUrl}/api/transaksi-pembelian`, 
-            {next: {revalidate: 3600} })
+            {next: {revalidate: 120} })
 
         if(!res.ok){
             throw new Error(`Gagal ambil data pembelian`)
