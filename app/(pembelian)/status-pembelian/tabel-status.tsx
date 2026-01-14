@@ -12,7 +12,7 @@ export default async function TabelStatus(){
 
     try{
         const res = await fetch(`${baseUrl}/api/status-pembelian`, 
-            {next: {revalidate: 3600} })
+            {next: {revalidate: 60} })
 
         if(!res.ok){
             throw new Error(`Gagal ambil status pembelian`)
