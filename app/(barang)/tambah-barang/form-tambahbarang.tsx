@@ -86,7 +86,7 @@ export default function FormTambahBarang() {
         setLoading(true)
 
         try{
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/tambah-barang`,{
+            const res = await fetch(`${baseUrl}/api/tambah-barang`,{
             method: "POST",
             headers:{
                 "Content-Type": "application/json",
@@ -113,30 +113,6 @@ export default function FormTambahBarang() {
                     <Label htmlFor="nama_barang" className="text-lg">Nama Barang</Label>
                     <Input type="text" id="nama_barang" name="nama_barang" placeholder="Masukkan Nama Barang"  className="border" required/>
                     <div className="mt-3 mb-3">
-                        {/* <Select 
-                            value={selectedKategoriId}
-                            onValueChange={handleSelectKategori}
-                        >
-                            <SelectTrigger className="w-56">
-                            <SelectValue placeholder="Pilih Kategori Barang" />
-                            </SelectTrigger>
-                            <SelectContent 
-                            className="max-h-[70vh] overflow-y-auto p-1"
-                            side="top"
-                            sideOffset={8}
-                            collisionPadding={16}
-                            align="start"
-                            >
-                            {kategoris.map((kategori) => (
-                                <SelectItem 
-                                key={kategori.id} 
-                                value={kategori.id.toString()}  // ✅ ID sebagai string
-                                >
-                                {kategori.nama_kategori}
-                                </SelectItem>
-                            ))}
-                            </SelectContent>
-                        </Select> */}
                         {/* <Label htmlFor="keterangan" className=" text-lg min-w-0 whitespace-nowrap">Pilih Kategori</Label> */}
                             <DropdownMenu>
                             <DropdownMenuTrigger asChild>
