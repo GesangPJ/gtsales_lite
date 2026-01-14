@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button"
 import { ArrowUpDown} from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
-type Pembelian = {
+export type Pembelian = {
   id: number,
-  nama_vendor: string,
+  createdAt: string,
   harga_beli: number,
   status: string,
   jumlahtotalharga: number,
@@ -57,26 +57,37 @@ export const columns: ColumnDef<Pembelian>[] = [
   },
   
   {
-    accessorKey: "nama_vendor",
-    size:200,
-    minSize:150,
-    header: ({ column }) => (
-      <div>
-        < Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="h-8 px-2"
-      >
-        Vendor / Distributor
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-
-      </div>
+  accessorKey: "createdAt",
+  minSize: 80,
+  size: 100,  // Lebar cukup untuk tanggal
+  header: ({ column }) => (
+    <Button 
+      variant="ghost" 
+      onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      className="h-8 px-2"
+    >
+      Tanggal
+      <ArrowUpDown className="ml-2 h-4 w-4" />
+    </Button>
+    ),
+    cell: ({ row }) => {
+      const isoString = row.getValue("createdAt") as string
       
-    ),
-    cell: ({ row }) => (
-      <div className="capitalize pl-2">
-        {row.getValue("nama_vendor")}
-      </div>
-    ),
+      let formattedDate = '-'
+      if (isoString) {
+        // Remove timezone offset untuk parse bersih
+        const localIso = isoString.replace(/\+00:00$/, '').replace('Z', '')
+        const date = new Date(localIso)
+        
+        formattedDate = new Intl.DateTimeFormat('id-ID', {
+          day: '2-digit',
+          month: '2-digit', 
+          year: 'numeric'
+        }).format(date)
+      }
+      
+      return <div className="pl-2 text-sm">{formattedDate}</div>
+    }
   },
   {
   accessorKey: "status",
