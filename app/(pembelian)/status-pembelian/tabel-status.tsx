@@ -2,14 +2,14 @@
 
 import { DataTable } from "@/components/data-table"
 import {columns} from "./kolom-statuspembelian"
+import { Pembelian } from "./kolom-statuspembelian"
+import { baseUrl } from "@/lib/base-url"
 
-type Pembelian = {
-  id: number,
-  nama_vendor: string,
-  harga_beli: number,
-  jumlahtotalharga: number,
-  biayakirim: number,
-}
+// type Pembelian = {
+//   id: number,
+//   harga_beli: number,
+//   jumlahtotalharga: number,
+// }
 
 
 export default async function TabelStatus(){
@@ -17,21 +17,21 @@ export default async function TabelStatus(){
     let status_p: Pembelian[] = []
 
     try{
-        const res = await fetch(`/api/status-pembelian`, 
+        const res = await fetch(`${baseUrl}/api/status-pembelian`, 
             {next: {revalidate: 3600} })
 
         if(!res.ok){
             throw new Error(`Gagal ambil status pembelian`)
         }
-
-        status_p = await res.json()
+        const data_res = await res.json()
+        status_p = data_res.data || []
     
     }catch(error){
 
     }
 
     return(
-        <div>
+        <div className="w-full overflow-x-auto">
             <DataTable
             columns={columns}
             data={status_p}
