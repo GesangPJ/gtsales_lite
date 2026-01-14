@@ -2,7 +2,7 @@
 
 "use client"
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect} from 'react'
 import { useCartStore } from './keranjang-pembelian'
 import { DataTable } from "@/components/data-table"
 import { toast } from "sonner"
@@ -20,12 +20,9 @@ import {
   InputGroupInput,
   InputGroupButton,
 } from "@/components/ui/input-group"
-import {
-  ButtonGroup,
-  ButtonGroupText,
-} from "@/components/ui/button-group"
 import { Label } from "@/components/ui/label"
 import { useDebouncedCallback } from "use-debounce" 
+import { baseUrl } from '@/lib/base-url'
 
 type Barang = {
     id: number,
@@ -78,7 +75,7 @@ export default function FormPembelian(){
         }
         
         try {
-        const res = await fetch(`/api/cari-barang?q=${encodeURIComponent(query)}`)
+        const res = await fetch(`${baseUrl}/api/cari-barang?q=${encodeURIComponent(query)}`)
         if (res.ok) {
             const results = await res.json()
             setSearchResults(results)
@@ -97,9 +94,6 @@ export default function FormPembelian(){
     const handleBayar = async () => {
         setLoadingBayar(true)
         
-        // Hitung total
-        const totalharga = items.reduce((sum, item) => sum + item.totalharga, 0)
-        
         // Siapkan data untuk API
         const dataPembelian = {
             namavendor: namaVendor || null,
@@ -114,7 +108,7 @@ export default function FormPembelian(){
         }
         
         try {
-            const res = await fetch(`/api/transaksi-pembelian`, {
+            const res = await fetch(`${baseUrl}/api/transaksi-pembelian`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dataPembelian),
