@@ -7,12 +7,14 @@ export async function GET(_req: NextRequest){
 
     try{
         const statuspembelian = await prisma.pembelian.findMany({
+            where:{
+                status:'DIPESAN',
+            },
             select:{
                 id:true,
                 kode:true,
                 status:true,
-                nama_vendor:true,
-                biayakirim:true,
+                createdAt: true,
                 jumlahtotalharga:true,
             },
         })
