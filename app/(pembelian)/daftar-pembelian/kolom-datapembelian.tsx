@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown} from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 
 export type Pembelian = {
   id: number,
@@ -16,6 +17,13 @@ export type Pembelian = {
 
 export const columns: ColumnDef<Pembelian>[] = [
 
+  {
+  accessorKey: "id",
+  size:0,
+  minSize:0,
+  header: () => <></>,  // ✅ Header kosong (invisible)
+  cell: () => <></>,    // ✅ Cell kosong (invisible)
+  },
   {
     id: "no",
     header: () => {
@@ -204,5 +212,24 @@ export const columns: ColumnDef<Pembelian>[] = [
 
       return <div className="text-left font-medium pl-2">{formatted}</div>
     },
+  },
+  {
+    id: "detail",
+    header:" ",
+    size:32,
+    minSize:20,
+    cell: ({row}) => {
+      const id = row.getValue("id") as number
+
+      return (
+        <div className="flex justify-center">
+        <Button asChild size="sm" variant="outline">
+          <Link href={`/detail-pembelian/${id}`}>Detail</Link>
+        </Button>
+      </div>
+      )
+      
+    }
+
   },
 ]
