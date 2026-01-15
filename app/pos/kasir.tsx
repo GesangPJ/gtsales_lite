@@ -8,10 +8,22 @@ import { toast } from "sonner"
 import { columns } from "./kolom-kasir"
 import { Button } from '@/components/ui/button'
 import { ScanQrCode, Search } from "lucide-react"
+import {IconArrowBadgeDownFilled} from "@tabler/icons-react"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
+  InputGroupTextarea,
+  InputGroupText,
 } from "@/components/ui/input-group"
 import {
   ButtonGroup,
@@ -30,6 +42,9 @@ type Barang = {
 
 
 export default function FormKasir(){
+    const [value, setValue] = useState("")
+    const maxLength = 250 // banyaknya kata untuk textarea
+    const remaining = maxLength - value.length
     const { items, addItem, clear } = useCartStore()
     const [data, setData] = useState(items)
     const [barcode, setBarcode] = useState("")
@@ -37,6 +52,8 @@ export default function FormKasir(){
     const [diskon, setDiskon] = useState(0)
     const [searchResults, setSearchResults] = useState<Barang[]>([])
     const barcodeRef = useRef<HTMLInputElement>(null)
+    const [metodeTransaksi, setMetodeTransaksi] = useState("")
+    const [loadingTransaksi, setLoadingTransaksi] = useState(false)
 
     // Total kotor (sebelum diskon)
     const total = useMemo(
@@ -62,9 +79,6 @@ export default function FormKasir(){
             minimumFractionDigits: 0 
         }).format(total)
     }
-
-    
-    
     // Sync data dengan store
     useEffect(() => {
         setData(items)
@@ -127,6 +141,51 @@ export default function FormKasir(){
     setSearchResults([])
     barcodeRef.current?.focus()  // Kembali ke barcode
   }
+  const status = "LUNAS"
+
+  const handleTransaksi = async () => {
+    setLoadingTransaksi(true)
+
+    const datatransaksi = {
+        status_transaksi:status || null,
+        diskon_transaksi:diskon || 0,
+        metode_transaksi:metodeTransaksi || null,
+        keterangan: value || null,
+        jumlahtotal:totalFinal,
+        barang: items.map(item=>({
+            id: item.id,
+            jumlah: item.jumlah,
+            harga_jual: item.harga_jual,
+        }))
+
+    }
+
+    try{
+        const res = await fetch(`${baseUrl}/api/transaksi-penjualan`,
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datatransaksi),
+            })
+
+            if(res.ok){
+            toast.success('Transaksi Penjualan berhasil! 🎉')
+            clear()
+            setMetodeTransaksi("")
+            setDiskon(0)
+            setValue("")
+
+            }else{
+                toast.error('Gagal membuat transaksi')
+            }
+
+
+    }catch(error){
+        toast.error('Error koneksi')
+    }finally {
+            setLoadingTransaksi(false)
+        }
+  }
 
     return(
         <div className="space-y-4">
@@ -184,7 +243,8 @@ export default function FormKasir(){
         )}
         <DataTable columns={columns as any} data={data} />
         <div className="sticky bottom-0 left-0 right-0 bg-background p-6 shadow-2xl">
-            <div className="">
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 max-w-full mx-auto">
+            <div className="space-y-3 md:max-w-md">
                 <ButtonGroup>
                 <ButtonGroupText asChild>
                     <Label htmlFor="diskon">Diskon</Label>
@@ -209,24 +269,69 @@ export default function FormKasir(){
                     />
                 </InputGroup>
                 </ButtonGroup>
-
                 <span className="text-xs text-muted-foreground">
                 Maks diskon: {formatRupiah(maxDiskon)}
                 </span>
-                
+                    <InputGroup className="border w-full mt-5 mb-5">
+                    <InputGroupTextarea
+                        className="w-full max-w-xl"   // <= batasi lebar textarea
+                        name="keterangan"
+                        id="keterangan"
+                        placeholder="Masukkan Keterangan Transaksi (opsional)"
+                        value={value}
+                        onChange={(e) => setValue(e.target.value.slice(0, maxLength))}
+                        maxLength={maxLength}
+                        rows={3}
+                    />
+                    <InputGroupAddon align="block-end">
+                        <InputGroupText className="text-muted-foreground text-xs">
+                        {remaining}/{maxLength} karakter
+                        {remaining < 20 && <span className="text-destructive ml-1">!</span>}
+                        </InputGroupText>
+                    </InputGroupAddon>
+                    </InputGroup>
             </div>
-            <div className="text-right mb-1 text-sm text-muted-foreground">
-                Total sebelum diskon: {formatRupiah(total)}
+
+            <div className="text-right md:text-right space-y-2 md:max-w-md md:ml-auto">
+                <div className='ml-auto md:w-48 mb-10'>
+                    <Select value={metodeTransaksi}
+                            onValueChange={setMetodeTransaksi}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Pilih Metode Pembayaran" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>Metode Pembayaran</SelectLabel>  
+                                <SelectItem value="CASH">
+                                    CASH
+                                </SelectItem>
+                                <SelectItem value="QRIS">
+                                    QRIS
+                                </SelectItem>
+                                <SelectItem value="TRANSFER">
+                                    TRANSFER
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className="text-sm text-right text-muted-foreground">
+                    Total sebelum diskon: {formatRupiah(total)}
+                </div>
+                <div className="text-3xl font-bold">
+                    Jumlah Total: {formatRupiah(totalFinal)}
+                </div>
+                </div>
             </div>
-            <div className="text-3xl font-bold text-right mb-4">
-            Jumlah Total: {formatRupiah(totalFinal)}
-            </div>
-            <div className="flex gap-3">
+            <div className="flex gap-3 pt-4 border-t">
             <Button variant="destructive" className="flex-1 h-14 text-xl" onClick={clear}>
                 Hapus
             </Button>
-             <Button className="flex-1 h-14 text-xl" >
-                Bayar (Ctrl+Enter)
+             <Button className="flex-1 h-14 text-xl" 
+                onClick={handleTransaksi}
+                disabled={loadingTransaksi || items.length === 0}
+             >
+                {loadingTransaksi ? "Memproses..." : "Bayar"}
             </Button>
             </div>
         </div>

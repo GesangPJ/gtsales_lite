@@ -1,4 +1,4 @@
-// Kolom data tabel detail pembelian barang
+// Kolom data tabel detail transaksi barang
 
 "use client"
 
@@ -6,15 +6,15 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown} from "lucide-react"
 
-export type BarangPembelian = {
+export type BarangPenjualan = {
   id: number,
   nama_barang: string,
-  hargabeli: number,
+  harga: number,
   jumlah: number,
   total: number,
 }
 
-export const columns: ColumnDef<BarangPembelian>[] = [
+export const columns: ColumnDef<BarangPenjualan>[] = [
 
   {
     id: "no",
@@ -57,7 +57,7 @@ export const columns: ColumnDef<BarangPembelian>[] = [
   },
 
   {
-    accessorKey: "hargabeli",
+    accessorKey: "harga",
     size:50,
     minSize:32,
     header: ({ column }) => {
@@ -67,7 +67,7 @@ export const columns: ColumnDef<BarangPembelian>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Harga Beli
+          Harga Barang
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
         </div>
@@ -75,7 +75,7 @@ export const columns: ColumnDef<BarangPembelian>[] = [
       )
     },
     cell: ({ row }) => {
-      const harga = parseFloat(row.getValue("hargabeli"))
+      const harga = parseFloat(row.getValue("harga"))
       
       // Format ke Rp
       const formatted = new Intl.NumberFormat("id-ID", {
@@ -125,20 +125,3 @@ export const columns: ColumnDef<BarangPembelian>[] = [
     },
   },
 ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

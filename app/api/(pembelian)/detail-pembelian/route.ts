@@ -52,8 +52,6 @@ export async function GET(req: NextRequest){
 
         return NextResponse.json({ success: true, data: hasil })
 
-
-
     }catch(error){
         console.error('Error:', error)
         return NextResponse.json({ error: 'Server error' }, { status: 500 })
