@@ -35,14 +35,14 @@ model Barang {
 model TransaksiDetail {
   id            Int        @id @default(autoincrement())
   transaksiId   Int
-  produkId      Int
+  barangId      Int
   jumlah        Int
   harga         Int
   total         Int        @default(0) // total = quantity * price
 
   // relasi
   transaksi     Transaksi  @relation(fields: [transaksiId], references: [id])
-  barangs        Barang     @relation(fields: [produkId], references: [id])
+  barangs        Barang     @relation(fields: [barangId], references: [id])
 }
 
 // Tabel Transaksi (penjualan)
@@ -50,10 +50,8 @@ model Transaksi {
   id             Int              @id @default(autoincrement())
   kode           String           @unique
   status         String           @default("LUNAS")
-  pelanggan      String?
   metode         String           @default("CASH")
-  diskon_p       Float?
-  diskon_n       Int?
+  diskon         Int?
   jumlahTotal    Int
   keterangan     String?
   createdAt      DateTime         @default(now())
