@@ -73,7 +73,6 @@ export const columns: ColumnDef<Pembelian>[] = [
       
       let formattedDate = '-'
       if (isoString) {
-        // Remove timezone offset untuk parse bersih
         const localIso = isoString.replace(/\+00:00$/, '').replace('Z', '')
         const date = new Date(localIso)
         
@@ -101,8 +100,6 @@ export const columns: ColumnDef<Pembelian>[] = [
           Jumlah Total
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-        
-        
       )
     },
     cell: ({ row }) => {
