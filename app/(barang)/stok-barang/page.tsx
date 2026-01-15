@@ -4,10 +4,20 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
+import { StokBarang } from "./stok-column"
+import TabelStokBarang from "./tabel-stok"
+import { baseUrl } from "@/lib/base-url"
 
-// import data from "./data.json"
 
-export default function HalamanStokBarang() {
+export default async function HalamanStokBarang() {
+
+  const res = await fetch(`${baseUrl}/api/update-stok`, {
+    cache: "force-cache",
+    next: { revalidate: 10 },
+  })
+
+  const json = await res.json()
+  
   return (
     <SidebarProvider
       style={
@@ -30,7 +40,8 @@ export default function HalamanStokBarang() {
                 </div>
              
               <div className="px-4 lg:px-6">
-                
+                <TabelStokBarang initialData={json.data ?? []} />
+              
               </div>
               
             </div>
