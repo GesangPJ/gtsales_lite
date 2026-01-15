@@ -61,30 +61,47 @@ export async function POST(req: Request){
 
         const kodePenjualan = `GT/SALES/${tahun}${bulan}/${kodeBaru}`
 
-        const buatTransaksi = await prisma.transaksi.create({
-            data:{
+        const result = await prisma.$transaction(async (tx) => {
+            // Buat transaksi + detail transaksi
+            const buatTransaksi = await tx.transaksi.create({
+                data: {
                 kode: kodePenjualan,
                 status: status_transaksi,
                 metode: metode_transaksi,
                 diskon: diskon_transaksi,
                 keterangan,
                 jumlahTotal: parseInt(jumlahtotal),
-                transaksiDetails:{
-                    create: barang.map((barang: any)=>({
-                        barangId: barang.id,
-                        jumlah: barang.jumlah,
-                        harga: barang.harga_jual,
-                        total: barang.harga_jual * barang.jumlah,
+                transaksiDetails: {
+                    create: barang.map((barang: any) => ({
+                    barangId: barang.id,
+                    jumlah: barang.jumlah,
+                    harga: barang.harga_jual,
+                    total: barang.harga_jual * barang.jumlah,
                     })),
                 }
+                }
+            })
+
+            // Kurangi stok barang
+            for (const item of barang) {
+                await tx.barang.update({
+                where: { id: item.id },
+                data: {
+                    stok: {
+                    decrement: parseInt(item.jumlah)
+                    }
+                }
+                })
             }
+
+            return buatTransaksi
         })
 
         return NextResponse.json({
             success: true,
-            data: buatTransaksi,
+            data: result,
             message: "Transaksi Penjualan berhasil dibuat"
-        })
+        }, {status: 201})
 
 
     }catch(error){
@@ -97,6 +114,44 @@ export async function POST(req: Request){
 
 }
 
+
+export async function GET(_req: NextRequest){
+
+    try{
+        const penjualan = await prisma.transaksi.findMany({
+            select:{
+                id:true,
+                kode:true,
+                status:true,
+                metode: true,
+                diskon: true,
+                keterangan:true,
+                jumlahTotal:true,
+            }
+        })
+
+        if(penjualan.length === 0){
+            return NextResponse.json({
+                success: false,
+                message:"Data Pembelian kosong",   
+            }, {status: 404})
+        }
+
+        return NextResponse.json({
+            success:true,
+            data: penjualan,
+            message: "Data penjualan diambil"
+        }, {status:200})
+
+
+    }catch(error){
+        console.error("Error mengambil data penjualan", error)
+        return NextResponse.json(
+        { error: "Gagal mengambil data penjualan" }, 
+        { status: 500 }
+        )
+    }
+}
 
 
 
