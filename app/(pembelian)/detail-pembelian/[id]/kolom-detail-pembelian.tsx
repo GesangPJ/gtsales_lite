@@ -67,7 +67,7 @@ export const columns: ColumnDef<BarangPembelian>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Jumlah Total
+          Harga Beli
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
         </div>
