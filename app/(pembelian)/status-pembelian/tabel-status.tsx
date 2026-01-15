@@ -5,14 +5,13 @@ import {columns} from "./kolom-statuspembelian"
 import { Pembelian } from "./kolom-statuspembelian"
 import { baseUrl } from "@/lib/base-url"
 
-
 export default async function TabelStatus(){
 
     let status_p: Pembelian[] = []
 
     try{
         const res = await fetch(`${baseUrl}/api/status-pembelian`, 
-            {next: {revalidate: 60} })
+            {next: {revalidate: 120} })
 
         if(!res.ok){
             throw new Error(`Gagal ambil status pembelian`)
