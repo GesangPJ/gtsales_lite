@@ -21,8 +21,8 @@ export const columns: ColumnDef<Pembelian>[] = [
   accessorKey: "id",
   size:0,
   minSize:0,
-  header: () => <></>,  // ✅ Header kosong (invisible)
-  cell: () => <></>,    // ✅ Cell kosong (invisible)
+  header: () => <></>, 
+  cell: () => <></>,  
   },
   {
     id: "no",
