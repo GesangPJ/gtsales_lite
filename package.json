@@ -5,8 +5,8 @@
   "startdate": "Senin-5-januari-2026",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "bun --bun next build",
+    "start": "bun --bun next start",
     "lint": "eslint",
     "seed:toko": "bun prisma/seedToko.ts",
     "seed:kategori": "bun prisma/seedKategori.ts"
