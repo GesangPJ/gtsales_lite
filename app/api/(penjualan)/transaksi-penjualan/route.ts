@@ -39,7 +39,6 @@ export async function POST(req: Request){
         })
 
         let kodeBaru = '00001'
-        // let status_transaksi = ''
 
         if(lastPenjualan && lastPenjualan.kode){
             const lastDate = new Date(lastPenjualan.createdAt)
