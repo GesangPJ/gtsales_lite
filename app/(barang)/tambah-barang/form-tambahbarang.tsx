@@ -99,6 +99,7 @@ export default function FormTambahBarang() {
             }
             toast.success("Barang berhasil ditambahkan 🎉")
             formRef.current?.reset()
+            setValue("")
             setSelectedKategori(null)
         } catch(error){
             console.error("Error Menyimpan barang", error)
