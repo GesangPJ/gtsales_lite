@@ -149,7 +149,7 @@ export default function FormKasir(){
     const datatransaksi = {
         status_transaksi:status || null,
         diskon_transaksi:diskon || 0,
-        metode_transaksi:metodeTransaksi || null,
+        metode_transaksi:metodeTransaksi || "CASH",
         keterangan: value || null,
         jumlahtotal:totalFinal,
         barang: items.map(item=>({
