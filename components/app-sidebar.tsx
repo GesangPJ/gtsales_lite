@@ -14,6 +14,7 @@ import {
   IconTableFilled,
   IconLayoutDashboard,
   IconReceipt,
+  IconChartHistogram,
 } from "@tabler/icons-react"
 import Link from "next/link"
 
@@ -96,6 +97,11 @@ const data = {
       url: "/status-pembelian",
       icon: IconReceipt,
     },
+    {
+      title: "Laporan Pembelian",
+      url: "/laporan/pembelian",
+      icon: IconChartHistogram,
+    }
 
   ],
   navSecondary: [
