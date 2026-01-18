@@ -54,6 +54,12 @@ const data = {
       url: "/data-penjualan",
       icon: IconDatabaseDollar,
     },
+    {
+      title: "Laporan Penjualan",
+      url:"/laporan/penjualan",
+      icon:IconChartHistogram,
+
+    },
     
     
   ],
