@@ -60,7 +60,7 @@ export default async function HalamanLaporanPembelian() {
               <div className="px-6 lg:px-6 grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
                 <Card className="w-full hover:bg-accent-foreground">
                     <CardHeader>
-                        <CardTitle className="text-center text-xl warp-break-words hyphens-auto leading-relaxed">Total Barang Pembelian</CardTitle>
+                        <CardTitle className="text-center text-lg warp-break-words hyphens-auto leading-relaxed">Total Barang Pembelian</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-2 text-lg">
@@ -83,10 +83,10 @@ export default async function HalamanLaporanPembelian() {
                 </Card>
                 <Card className="w-full hover:bg-accent-foreground">
                     <CardHeader>
-                        <CardTitle className="text-center text-xl warp-break-words hyphens-auto leading-relaxed">Total Nilai Pembelian</CardTitle>
+                        <CardTitle className="text-center text-lg warp-break-words hyphens-auto leading-relaxed">Total Nilai Pembelian</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <h1 className="text-center text-xl font-bold break-all md:break-words whitespace-pre-wrap leading-relaxed">
+                        <h1 className="text-center text-3xl text-yellow-500 font-bold break-all md:wrap-break-words whitespace-pre-wrap leading-relaxed">
                         {laporan.totalJumlahTotalHarga ?
                         `Rp${parseInt(laporan.totalJumlahTotalHarga).toLocaleString()}`: 'Tidak ada Data'}
                         </h1>
@@ -94,7 +94,7 @@ export default async function HalamanLaporanPembelian() {
                 </Card>
                 <Card className="w-full hover:bg-accent-foreground">
                     <CardHeader>
-                        <CardTitle className="text-center text-xl warp-break-words hyphens-auto leading-relaxed">Total Transaksi Pembelian</CardTitle>
+                        <CardTitle className="text-center text-lg warp-break-words hyphens-auto leading-relaxed">Total Transaksi Pembelian</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="text-lg grid grid-cols-[auto_auto_1fr] items-center gap-x-2">
@@ -116,20 +116,20 @@ export default async function HalamanLaporanPembelian() {
                 </Card>
                 <Card className="w-full hover:bg-accent-foreground">
                     <CardHeader>
-                        <CardTitle className="text-center text-xl warp-break-words hyphens-auto leading-relaxed">Total Biaya Kirim</CardTitle>
+                        <CardTitle className="text-center text-lg warp-break-words hyphens-auto leading-relaxed">Total Biaya Kirim</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <h1 className="text-center text-xl font-bold">
+                        <h1 className="text-center text-3xl text-red-700 font-bold">
                             {laporan.totalBiayaKirim ? `Rp${parseInt(laporan.totalBiayaKirim).toLocaleString()}`:'Tidak ada Data' }
                             </h1>
                     </CardContent>
                 </Card>
                 <Card className="w-full hover:bg-accent-foreground">
                     <CardHeader>
-                        <CardTitle className="text-center text-xl warp-break-words hyphens-auto leading-relaxed">Rata-Rata Nilai Pembelian</CardTitle>
+                        <CardTitle className="text-center text-lg warp-break-words hyphens-auto leading-relaxed">Rata-Rata Nilai Pembelian</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <h1 className="text-center text-xl font-bold">
+                        <h1 className="text-center text-3xl text-green-600 font-bold">
                             {laporan.rataTotalPerTransaksi 
                             ? `Rp${parseInt(laporan.rataTotalPerTransaksi).toLocaleString()}`
                             : 'Tidak ada Data'

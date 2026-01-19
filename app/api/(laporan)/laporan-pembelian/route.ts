@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma"
 import { NextResponse, NextRequest } from "next/server"
-import { Prisma, Pembelian } from "@/generated/prisma/client"
+import { Prisma } from "@/generated/prisma/client"
 
 type PembelianWithDetails = Prisma.PembelianGetPayload<{
     include: {

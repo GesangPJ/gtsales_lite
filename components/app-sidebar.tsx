@@ -54,6 +54,12 @@ const data = {
       url: "/data-penjualan",
       icon: IconDatabaseDollar,
     },
+    {
+      title: "Laporan Penjualan",
+      url:"/laporan/penjualan",
+      icon:IconChartHistogram,
+
+    },
     
     
   ],
@@ -133,7 +139,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:p-1.6 hover:bg-transparent hover:text-foreground"
             >
               <Link href="/" className="hover:bg-none">
-                <IconAppsFilled size={64} />
+                <IconAppsFilled/>
                 <span className="text-base font-semibold">GTSALES LITE </span>
                 <AppInfo/>
               </Link>
@@ -153,7 +159,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-50px" />
       </SidebarContent>
       <SidebarFooter>
-        {/* <NavUser user={data.user} /> */}
       </SidebarFooter>
     </Sidebar>
   )
